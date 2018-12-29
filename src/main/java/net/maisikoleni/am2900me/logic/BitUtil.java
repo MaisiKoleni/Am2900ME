@@ -10,8 +10,17 @@ public class BitUtil {
 	/**
 	 * Represents the OFF / high impedance state of a circuit connected to a
 	 * tri-state bus.
+	 * 
+	 * @author MaisiKoleni
 	 */
 	public static final int TRI_STATE_OFF = -1; // TODO: tristate class/enum/interface ?
+
+	/**
+	 * The bit of operations returning undefined results
+	 *
+	 * @author MaisiKoleni
+	 */
+	public static final int UNDEFINED = -1;
 
 	/**
 	 * Returns 1 if the bitVector int has one bit set to 1, 0 otherwise
