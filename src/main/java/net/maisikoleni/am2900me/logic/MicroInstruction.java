@@ -46,7 +46,8 @@ interface µIField {
 }
 
 enum _MWE implements µIField {
-	W, R;
+	W,
+	R;
 
 	@Override
 	public String getFullName() {
@@ -55,7 +56,8 @@ enum _MWE implements µIField {
 }
 
 enum _IR_LD implements µIField {
-	L, H;
+	L,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -64,7 +66,8 @@ enum _IR_LD implements µIField {
 }
 
 enum _BZ_EA implements µIField {
-	E, H;
+	E,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -73,7 +76,8 @@ enum _BZ_EA implements µIField {
 }
 
 enum _BZ_INC implements µIField {
-	I, H;
+	I,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -82,7 +86,8 @@ enum _BZ_INC implements µIField {
 }
 
 enum _BZ_ED implements µIField {
-	E, H;
+	E,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -91,7 +96,8 @@ enum _BZ_ED implements µIField {
 }
 
 enum _BZ_LD implements µIField {
-	L, H;
+	L,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -115,7 +121,22 @@ class BAR implements µIField {
 }
 
 enum Am2910_Inst implements µIField {
-	JZ, CJS, JMAP, CJP, PUSH, JSRP, CJV, JRP, RFCT, RPCT, CRTN, CJPP, LDCT, LOOP, CONT, TWB;
+	JZ,
+	CJS,
+	JMAP,
+	CJP,
+	PUSH,
+	JSRP,
+	CJV,
+	JRP,
+	RFCT,
+	RPCT,
+	CRTN,
+	CJPP,
+	LDCT,
+	LOOP,
+	CONT,
+	TWB;
 
 	@Override
 	public String getFullName() {
@@ -124,7 +145,8 @@ enum Am2910_Inst implements µIField {
 }
 
 enum _CCEN implements µIField {
-	C, PS;
+	C,
+	PS;
 
 	@Override
 	public String getFullName() {
@@ -142,26 +164,70 @@ enum _CCEN implements µIField {
  * </ul>
  */
 enum Am2904_Inst implements µIField {
-	LoadM_LoadY_µ_NxorOVRorZ(0_00), Set_Set_µ_NxnorOVRornotZ(0_01), Swap_Swap_µ_NxorOVR(0_02),
-	Reset_Reset_µ_NxnorOVR(0_03), Load_LoadForShiftThroughOvr_µ_Z(0_04), Load_Invert_µ_notZ(0_05),
-	LoadOvrRetain_Load_µ_OVR(0_06), LoadOvrRetain_Load_µ_notOVR(0_07), ResetZ_LoadCarryInvert_µ_CorZ(0_10),
-	SetZ_LoadCarryInvert_µ_notCandnotZ(0_11), ResetC_Load_µ_C(0_12), SetC_Load_µ_notC(0_13),
-	ResetN_Load_µ_notCorZ(0_14), SetN_Load_µ_CandnotZ(0_15), ResetOvr_Load_IM_NxorN(0_16), SetOvr_Load_IM_NxnorN(0_17),
-	Load_Load_µ_NxorOVRorZ(0_20), Load_Load_µ_NxnorOVRornotZ(0_21), Load_Load_µ_NxorOVR(0_22),
-	Load_Load_µ_NxnorOVR(0_23), Load_Load_µ_Z(0_24), Load_Load_µ_notZ(0_25), Load_Load_µ_OVR(0_26),
-	Load_Load_µ_notOVR(0_27), LoadCarryInvert_LoadCarryInvert_µ_CorZ(0_30),
-	LoadCarryInvert_LoadCarryInvert_µ_notCandnotZ(0_31), Load_Load_µ_C(0_32), Load_Load_µ_notC(0_33),
-	Load_Load_µ_notCorZ(0_34), Load_Load_µ_CandnotZ(0_35), Load_Load_µ_N(0_36), Load_Load_µ_notN(0_37),
-	Load_Load_M_NxorOVRorZ(0_40), Load_Load_M_NxnorOVRornotZ(0_41), Load_Load_M_NxorOVR(0_42),
-	Load_Load_M_NxnorOVR(0_43), Load_Load_M_Z(0_44), Load_Load_M_notZ(0_45), Load_Load_M_OVR(0_46),
-	Load_Load_M_notOVR(0_47), LoadCarryInvert_LoadCarryInvert_M_CorZ(0_50),
-	LoadCarryInvert_LoadCarryInvert_M_notCandnotZ(0_51), Load_Load_M_C(0_52), Load_Load_M_notC(0_53),
-	Load_Load_M_notCorZ(0_54), Load_Load_M_CandnotZ(0_55), Load_Load_M_N(0_56), Load_Load_M_notN(0_57),
-	Load_Load_I_NxorOVRorZ(0_60), Load_Load_I_NxnorOVRornotZ(0_61), Load_Load_I_NxorOVR(0_62),
-	Load_Load_I_NxnorOVR(0_63), Load_Load_I_Z(0_64), Load_Load_I_notZ(0_65), Load_Load_I_OVR(0_66),
-	Load_Load_I_notOVR(0_67), LoadCarryInvert_LoadCarryInvert_I_notCorZ(0_70),
-	LoadCarryInvert_LoadCarryInvert_I_CandnotZ(0_71), Load_Load_I_C(0_72), Load_Load_I_notC(0_73),
-	Load_Load_I_notCorZ(0_74), Load_Load_I_CandnotZ(0_75), Load_Load_I_N(0_76), Load_Load_I_notN(0_77);
+	LoadM_LoadY_µ_NxorOVRorZ(0_00),
+	Set_Set_µ_NxnorOVRornotZ(0_01),
+	Swap_Swap_µ_NxorOVR(0_02),
+	Reset_Reset_µ_NxnorOVR(0_03),
+	Load_LoadForShiftThroughOvr_µ_Z(0_04),
+	Load_Invert_µ_notZ(0_05),
+	LoadOvrRetain_Load_µ_OVR(0_06),
+	LoadOvrRetain_Load_µ_notOVR(0_07),
+	ResetZ_LoadCarryInvert_µ_CorZ(0_10),
+	SetZ_LoadCarryInvert_µ_notCandnotZ(0_11),
+	ResetC_Load_µ_C(0_12),
+	SetC_Load_µ_notC(0_13),
+	ResetN_Load_µ_notCorZ(0_14),
+	SetN_Load_µ_CandnotZ(0_15),
+	ResetOvr_Load_IM_NxorN(0_16),
+	SetOvr_Load_IM_NxnorN(0_17),
+	Load_Load_µ_NxorOVRorZ(0_20),
+	Load_Load_µ_NxnorOVRornotZ(0_21),
+	Load_Load_µ_NxorOVR(0_22),
+	Load_Load_µ_NxnorOVR(0_23),
+	Load_Load_µ_Z(0_24),
+	Load_Load_µ_notZ(0_25),
+	Load_Load_µ_OVR(0_26),
+	Load_Load_µ_notOVR(0_27),
+	LoadCarryInvert_LoadCarryInvert_µ_CorZ(0_30),
+	LoadCarryInvert_LoadCarryInvert_µ_notCandnotZ(0_31),
+	Load_Load_µ_C(0_32),
+	Load_Load_µ_notC(0_33),
+	Load_Load_µ_notCorZ(0_34),
+	Load_Load_µ_CandnotZ(0_35),
+	Load_Load_µ_N(0_36),
+	Load_Load_µ_notN(0_37),
+	Load_Load_M_NxorOVRorZ(0_40),
+	Load_Load_M_NxnorOVRornotZ(0_41),
+	Load_Load_M_NxorOVR(0_42),
+	Load_Load_M_NxnorOVR(0_43),
+	Load_Load_M_Z(0_44),
+	Load_Load_M_notZ(0_45),
+	Load_Load_M_OVR(0_46),
+	Load_Load_M_notOVR(0_47),
+	LoadCarryInvert_LoadCarryInvert_M_CorZ(0_50),
+	LoadCarryInvert_LoadCarryInvert_M_notCandnotZ(0_51),
+	Load_Load_M_C(0_52),
+	Load_Load_M_notC(0_53),
+	Load_Load_M_notCorZ(0_54),
+	Load_Load_M_CandnotZ(0_55),
+	Load_Load_M_N(0_56),
+	Load_Load_M_notN(0_57),
+	Load_Load_I_NxorOVRorZ(0_60),
+	Load_Load_I_NxnorOVRornotZ(0_61),
+	Load_Load_I_NxorOVR(0_62),
+	Load_Load_I_NxnorOVR(0_63),
+	Load_Load_I_Z(0_64),
+	Load_Load_I_notZ(0_65),
+	Load_Load_I_OVR(0_66),
+	Load_Load_I_notOVR(0_67),
+	LoadCarryInvert_LoadCarryInvert_I_notCorZ(0_70),
+	LoadCarryInvert_LoadCarryInvert_I_CandnotZ(0_71),
+	Load_Load_I_C(0_72),
+	Load_Load_I_notC(0_73),
+	Load_Load_I_notCorZ(0_74),
+	Load_Load_I_CandnotZ(0_75),
+	Load_Load_I_N(0_76),
+	Load_Load_I_notN(0_77);
 
 	public final int code;
 
@@ -206,7 +272,8 @@ enum Am2904_Inst implements µIField {
 }
 
 enum _CE_M implements µIField {
-	L, H;
+	L,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -215,7 +282,8 @@ enum _CE_M implements µIField {
 }
 
 enum _CE_µ implements µIField {
-	L, H;
+	L,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -239,7 +307,10 @@ class Am2904_Shift implements µIField {
 }
 
 enum Am2904_Carry implements µIField {
-	CI0, CI1, CX, USE_SR;
+	CI0,
+	CI1,
+	CX,
+	USE_SR;
 
 	@Override
 	public String getFullName() {
@@ -248,7 +319,8 @@ enum Am2904_Carry implements µIField {
 }
 
 enum _DBUS implements µIField {
-	DB, H;
+	DB,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -257,7 +329,8 @@ enum _DBUS implements µIField {
 }
 
 enum _ABUS implements µIField {
-	AB, H;
+	AB,
+	H;
 
 	@Override
 	public String getFullName() {
@@ -266,7 +339,8 @@ enum _ABUS implements µIField {
 }
 
 enum BSEL implements µIField {
-	IR, MR;
+	IR,
+	MR;
 
 	@Override
 	public String getFullName() {
@@ -290,7 +364,8 @@ class RB_ADDR implements µIField {
 }
 
 enum ASEL implements µIField {
-	IR, MR;
+	IR,
+	MR;
 
 	@Override
 	public String getFullName() {
@@ -314,7 +389,14 @@ class RA_ADDR implements µIField {
 }
 
 enum Am2901_Dest implements µIField {
-	QREG, NOP, RAMA, RAMF, RAMQD, RAMD, RAMQU, RAMU;
+	QREG,
+	NOP,
+	RAMA,
+	RAMF,
+	RAMQD,
+	RAMD,
+	RAMQU,
+	RAMU;
 
 	public boolean doesShift() {
 		return ordinal() >= 4;
@@ -335,7 +417,14 @@ enum Am2901_Dest implements µIField {
 }
 
 enum Am2901_Func implements µIField {
-	ADD, SUBR, SUBS, OR, AND, NOTRS, EXOR, EXNOR;
+	ADD,
+	SUBR,
+	SUBS,
+	OR,
+	AND,
+	NOTRS,
+	EXOR,
+	EXNOR;
 
 	@Override
 	public String getFullName() {
@@ -344,7 +433,14 @@ enum Am2901_Func implements µIField {
 }
 
 enum Am2901_Src implements µIField {
-	AQ, AB, ZQ, ZB, ZA, DA, DQ, DZ;
+	AQ,
+	AB,
+	ZQ,
+	ZB,
+	ZA,
+	DA,
+	DQ,
+	DZ;
 
 	@Override
 	public String getFullName() {
@@ -368,7 +464,8 @@ class Konst implements µIField {
 }
 
 enum KMUX implements µIField {
-	K, D;
+	K,
+	D;
 
 	@Override
 	public String getFullName() {
@@ -392,7 +489,8 @@ class Interrupt implements µIField {
 }
 
 enum IE implements µIField {
-	IE, DIS;
+	IE,
+	DIS;
 
 	@Override
 	public String getFullName() {

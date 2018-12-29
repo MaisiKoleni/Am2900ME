@@ -2,7 +2,10 @@ package net.maisikoleni.am2900me.logic;
 
 /**
  * The Am2904 is the "Status and Shift Control Unit". Intended to work closely
- * together with the ALU, see {@link Am2901x4}.
+ * together with the ALU, see {@link Am2901x4}.<br>
+ * <b>For more details and a comprehensive overview, please see the
+ * "Am2904_Instruction_Codes" PDF and the Am2900 Data Book page 92ff in the
+ * additional_material folder.</b>
  *
  * @author MaisiKoleni
  *
@@ -235,6 +238,8 @@ public class Am2904 {
 		srCache[3] = MOVR;
 		doµSROperations();
 		doMSROperations();
+		// this is much more readable and less error prone than mixing the calculations
+		// with the status register write restrictions
 		if (input._CEµ == _CE_µ.H) {
 			µZ = srCache[0];
 			µC = srCache[1];
