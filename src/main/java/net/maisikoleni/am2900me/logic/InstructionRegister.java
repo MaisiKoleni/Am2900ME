@@ -24,7 +24,7 @@ public class InstructionRegister {
 		if (input.data == BitUtil.TRI_STATE_OFF)
 			throw new IllegalStateException("cannot write instruction register from data bus, no data signals");
 		instruction = input.data;
-		output.opCode = instruction >>> 16;
+		output.opCode = instruction >>> 8;
 		output.regAAddr = (instruction >>> 4) & 0b0111;
 		output.regBAddr = instruction & 0b0111;
 	}

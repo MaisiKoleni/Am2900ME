@@ -36,9 +36,43 @@ public class MicroInstruction {
 	Am2901_Func am2901_Func = Am2901_Func.ADD;
 	Am2901_Src am2901_Src = Am2901_Src.AB;
 	Konst k = Konst.NONE;
-	KMUX kmux = KMUX.D;
+	KMUX kmux = KMUX.K;
 	Interrupt interrupt = Interrupt.NONE;
 	IE ie = IE.DIS;
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("MicroInstruction: {\n");
+		sb.append("\t" + mwe + ",\n");
+		sb.append("\t" + ir_ld + ",\n");
+		sb.append("\t" + bz_ea + ",\n");
+		sb.append("\t" + bz_inc + ",\n");
+		sb.append("\t" + bz_ed + ",\n");
+		sb.append("\t" + bz_ld + ",\n");
+		sb.append("\t" + bar + ",\n");
+		sb.append("\t" + am2910_Inst + ",\n");
+		sb.append("\t" + ccen + ",\n");
+		sb.append("\t" + am2904_Inst + ",\n");
+		sb.append("\t" + ce_m + ",\n");
+		sb.append("\t" + ce_µ + ",\n");
+		sb.append("\t" + am2904_Shift + ",\n");
+		sb.append("\t" + am2904_Carry + ",\n");
+		sb.append("\t" + dbus + ",\n");
+		sb.append("\t" + abus + ",\n");
+		sb.append("\t" + bsel + ",\n");
+		sb.append("\t" + rb_addr + ",\n");
+		sb.append("\t" + asel + ",\n");
+		sb.append("\t" + ra_addr + ",\n");
+		sb.append("\t" + am2901_Dest + ",\n");
+		sb.append("\t" + am2901_Func + ",\n");
+		sb.append("\t" + am2901_Src + ",\n");
+		sb.append("\t" + k + ",\n");
+		sb.append("\t" + kmux + ",\n");
+		sb.append("\t" + interrupt + ",\n");
+		sb.append("\t" + ie + "\n}");
+		return sb.toString();
+	}
 }
 
 interface µIField {
@@ -111,12 +145,19 @@ class BAR implements µIField {
 	final int uint_12bit;
 
 	public BAR(int uint_12bit) {
+		if ((uint_12bit & 0xFF_FF_F0_00) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 12 bit integer but was " + uint_12bit);
 		this.uint_12bit = uint_12bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Direktadressfeld";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_12bit, 12);
 	}
 }
 
@@ -297,12 +338,19 @@ class Am2904_Shift implements µIField {
 	final int uint_4bit;
 
 	public Am2904_Shift(int uint_4bit) {
+		if ((uint_4bit & 0xFF_FF_FF_F0) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 4 bit integer but was " + uint_4bit);
 		this.uint_4bit = uint_4bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Instruktionsbit des Am2904 - Schiebesteuerung";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_4bit, 4);
 	}
 }
 
@@ -354,12 +402,19 @@ class RB_ADDR implements µIField {
 	final int uint_8bit;
 
 	public RB_ADDR(int uint_8bit) {
+		if ((uint_8bit & 0xFF_FF_FF_00) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 8 bit integer but was " + uint_8bit);
 		this.uint_8bit = uint_8bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Register B Direktadresse";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_8bit, 8);
 	}
 }
 
@@ -379,12 +434,19 @@ class RA_ADDR implements µIField {
 	final int uint_8bit;
 
 	public RA_ADDR(int uint_8bit) {
+		if ((uint_8bit & 0xFF_FF_FF_00) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 8 bit integer but was " + uint_8bit);
 		this.uint_8bit = uint_8bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Register A Direktadresse";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_8bit, 8);
 	}
 }
 
@@ -454,12 +516,19 @@ class Konst implements µIField {
 	final int uint_16bit;
 
 	public Konst(int uint_16bit) {
+		if ((uint_16bit & 0xFF_FF_00_00) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 16 bit integer but was " + uint_16bit);
 		this.uint_16bit = uint_16bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Konstantenfeld";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_16bit, 16);
 	}
 }
 
@@ -479,12 +548,19 @@ class Interrupt implements µIField {
 	final int uint_4bit;
 
 	public Interrupt(int uint_4bit) {
+		if ((uint_4bit & 0xFF_FF_FF_F0) != 0)
+			throw new IllegalArgumentException("argument must be an unsigned 4 bit integer but was " + uint_4bit);
 		this.uint_4bit = uint_4bit;
 	}
 
 	@Override
 	public String getFullName() {
 		return "Interruptsteuerung";
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(uint_4bit, 4);
 	}
 }
 

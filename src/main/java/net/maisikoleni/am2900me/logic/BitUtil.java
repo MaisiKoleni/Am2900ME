@@ -119,4 +119,18 @@ public class BitUtil {
 		sb.append((x & 0b0001) == 0 ? '0' : '1');
 		return sb.toString();
 	}
+
+	/**
+	 * Transforms the last n bits of an int to a string that contains the binary
+	 * ('1' and '0') representation of the n bits
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public static String toNbitString(int x, int n) {
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			sb.append((x >> i) & 1);
+		}
+		return sb.reverse().toString();
+	}
 }
