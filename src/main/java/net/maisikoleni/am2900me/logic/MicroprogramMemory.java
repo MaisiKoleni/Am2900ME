@@ -20,4 +20,15 @@ public class MicroprogramMemory {
 			throw new IllegalArgumentException("microprogram memory address out of bounds: " + address);
 		return instructions[address];
 	}
+
+	/**
+	 * Sets the instruction at the given address
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public void setInstruction(int address, MicroInstruction mi) {
+		if (address < 0 || address >= 4096)
+			throw new IllegalArgumentException("microprogram memory address out of bounds: " + address);
+		instructions[address] = mi;
+	}
 }

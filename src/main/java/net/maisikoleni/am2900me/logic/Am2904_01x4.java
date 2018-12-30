@@ -20,6 +20,8 @@ public class Am2904_01x4 {
 	 * always enabled, because the machine in the example does not seem to provide
 	 * so details control over the MSR. Still left _OECT and _OE for
 	 * performance/experimental reasons.
+	 * 
+	 * @author MaisiKoleni
 	 */
 	public Am2904_01x4() {
 		am2904.input._EZ = 0;
@@ -35,7 +37,7 @@ public class Am2904_01x4 {
 	 * Does all the calculations the ALU and status tests are told by the input
 	 * instructions. Results in a CT and Y output.
 	 * 
-	 * @author Christian Femers
+	 * @author MaisiKoleni
 	 */
 	public void process() {
 		// Am2904 setup
