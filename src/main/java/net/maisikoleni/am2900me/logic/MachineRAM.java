@@ -1,6 +1,7 @@
 package net.maisikoleni.am2900me.logic;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Quite rudimentary implementation of the machine's main memory; memory pages
@@ -14,7 +15,7 @@ public class MachineRAM {
 	final MainMachineRAMinput input = new MainMachineRAMinput();
 	final MainMachineRAMoutput output = new MainMachineRAMoutput();
 
-	private HashMap<Integer, short[]> pages = new HashMap<>();
+	private Map<Integer, short[]> pages = new HashMap<>();
 	private int lastAddr = BitUtil.TRI_STATE_OFF;
 	private _MWE last_MWE = _MWE.R;
 
@@ -70,6 +71,55 @@ public class MachineRAM {
 	 */
 	public void set(int address, int shortValue) {
 		getPage(address)[address & 0x0FFF] = (short) shortValue;
+	}
+
+	/**
+	 * Returns the 16 bit short stored at the given address.
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public short get(int address) {
+		return getPage(address)[address & 0x0FFF];
+	}
+
+	/**
+	 * Returns the number of pages the RAM has.
+	 * 
+	 * @author MaisiKoleni
+	 */
+	@SuppressWarnings("static-method")
+	public int pageCount() {
+		return 16;
+	}
+
+	/**
+	 * Returns the number of memory cells of a single page.
+	 * 
+	 * @author MaisiKoleni
+	 */
+	@SuppressWarnings("static-method")
+	public int cellCount() {
+		return 4096;
+	}
+
+	/**
+	 * Returns true if the given page is currently in use, that is when values
+	 * located in the page are read or written by the user or machine.
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public boolean isPageInUse(int page) {
+		return pages.containsKey(page);
+	}
+
+	/**
+	 * Returns true if the given page is currently in use, that is when values
+	 * located in the page are read or written by the user or machine.
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public void allocatePage(int page) {
+		getPage(page * cellCount());
 	}
 }
 

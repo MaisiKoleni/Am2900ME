@@ -16,7 +16,7 @@ public class MicroprogramMemory {
 	 * @author MaisiKoleni
 	 */
 	public MicroInstruction getInstruction(int address) {
-		if (address < 0 || address >= 4096)
+		if (!BitUtil.isInRange(address, 12))
 			throw new IllegalArgumentException("microprogram memory address out of bounds: " + address);
 		return instructions[address];
 	}
@@ -27,7 +27,7 @@ public class MicroprogramMemory {
 	 * @author MaisiKoleni
 	 */
 	public void setInstruction(int address, MicroInstruction mi) {
-		if (address < 0 || address >= 4096)
+		if (!BitUtil.isInRange(address, 12))
 			throw new IllegalArgumentException("microprogram memory address out of bounds: " + address);
 		instructions[address] = mi;
 	}
