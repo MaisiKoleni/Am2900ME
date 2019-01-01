@@ -124,4 +124,39 @@ public class Am2900Machine {
 			throw new IllegalStateException("address bus already in use");
 		addrBus = signal;
 	}
+
+	@SuppressWarnings("javadoc")
+	public final ProgramCounter getPc() {
+		return pc;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final InstructionRegister getIr() {
+		return ir;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final MappingPROM getmProm() {
+		return mProm;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final Am2910 getAm2910() {
+		return am2910;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final Am2904_01x4 getAm2904_01x4() {
+		return am2904_01x4;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final MicroprogramMemory getMpm() {
+		return mpm;
+	}
+
+	@SuppressWarnings("javadoc")
+	public final MachineRAM getMachineRam() {
+		return machineRam;
+	}
 }

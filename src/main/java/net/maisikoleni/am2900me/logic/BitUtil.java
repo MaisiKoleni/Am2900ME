@@ -133,4 +133,14 @@ public class BitUtil {
 		}
 		return sb.reverse().toString();
 	}
+
+	/**
+	 * Tests if only the lowest n bits are set, if any. Tests basically if the value
+	 * is in the range [0, 2^n)
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public static boolean isInRange(int value, int nBits) {
+		return (value >>> nBits) == 0;
+	}
 }

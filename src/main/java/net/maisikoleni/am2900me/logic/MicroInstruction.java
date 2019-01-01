@@ -11,6 +11,7 @@ import java.util.Map;
  * @author MaisiKoleni
  *
  */
+@SuppressWarnings("javadoc")
 public class MicroInstruction {
 	_MWE mwe = _MWE.R;
 	_IR_LD ir_ld = _IR_LD.H;
@@ -72,6 +73,114 @@ public class MicroInstruction {
 		sb.append("\t" + interrupt + ",\n");
 		sb.append("\t" + ie + "\n}");
 		return sb.toString();
+	}
+
+	public final _MWE getMwe() {
+		return mwe;
+	}
+
+	public final _IR_LD getIr_ld() {
+		return ir_ld;
+	}
+
+	public final _BZ_EA getBz_ea() {
+		return bz_ea;
+	}
+
+	public final _BZ_INC getBz_inc() {
+		return bz_inc;
+	}
+
+	public final _BZ_ED getBz_ed() {
+		return bz_ed;
+	}
+
+	public final _BZ_LD getBz_ld() {
+		return bz_ld;
+	}
+
+	public final BAR getBar() {
+		return bar;
+	}
+
+	public final Am2910_Inst getAm2910_Inst() {
+		return am2910_Inst;
+	}
+
+	public final _CCEN getCcen() {
+		return ccen;
+	}
+
+	public final Am2904_Inst getAm2904_Inst() {
+		return am2904_Inst;
+	}
+
+	public final _CE_M getCe_m() {
+		return ce_m;
+	}
+
+	public final _CE_µ getCe_µ() {
+		return ce_µ;
+	}
+
+	public final Am2904_Shift getAm2904_Shift() {
+		return am2904_Shift;
+	}
+
+	public final Am2904_Carry getAm2904_Carry() {
+		return am2904_Carry;
+	}
+
+	public final _DBUS getDbus() {
+		return dbus;
+	}
+
+	public final _ABUS getAbus() {
+		return abus;
+	}
+
+	public final BSEL getBsel() {
+		return bsel;
+	}
+
+	public final RB_ADDR getRb_addr() {
+		return rb_addr;
+	}
+
+	public final ASEL getAsel() {
+		return asel;
+	}
+
+	public final RA_ADDR getRa_addr() {
+		return ra_addr;
+	}
+
+	public final Am2901_Dest getAm2901_Dest() {
+		return am2901_Dest;
+	}
+
+	public final Am2901_Func getAm2901_Func() {
+		return am2901_Func;
+	}
+
+	public final Am2901_Src getAm2901_Src() {
+		return am2901_Src;
+	}
+
+	public final Konst getK() {
+		return k;
+	}
+
+	public final KMUX getKmux() {
+		return kmux;
+	}
+
+	public final Interrupt getInterrupt() {
+		return interrupt;
+	}
+
+	public final IE getIe() {
+		return ie;
 	}
 }
 
