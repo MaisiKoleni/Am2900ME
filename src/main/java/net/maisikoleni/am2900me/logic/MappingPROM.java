@@ -14,6 +14,16 @@ public class MappingPROM {
 	int[] addressTable = new int[256];
 
 	/**
+	 * The default mapping maps each OP-Code to the OP-Code * 16 microinstruction
+	 * address.
+	 */
+	public MappingPROM() {
+		for (int i = 0; i < addressTable.length; i++) {
+			addressTable[i] = i << 4;
+		}
+	}
+
+	/**
 	 * Sets the output miAddress according to the entry in the address table, or
 	 * {@link BitUtil#TRI_STATE_OFF} if _OE is high.<br>
 	 * 
