@@ -1,5 +1,8 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr._IR_LD;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * Holds the current machine instruction.
  *

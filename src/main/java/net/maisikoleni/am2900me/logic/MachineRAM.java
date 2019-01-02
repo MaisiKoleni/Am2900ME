@@ -3,6 +3,9 @@ package net.maisikoleni.am2900me.logic;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.maisikoleni.am2900me.logic.microinstr._MWE;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * Quite rudimentary implementation of the machine's main memory; memory pages
  * (4096 x 16bit) are only created when used.

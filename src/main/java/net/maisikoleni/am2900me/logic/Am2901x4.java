@@ -1,5 +1,10 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Func;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Src;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * Four {@link Am2901} combined (without Am2902 here) make a 16 bit ALU.
  *

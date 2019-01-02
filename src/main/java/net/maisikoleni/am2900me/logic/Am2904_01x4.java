@@ -1,5 +1,14 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Func;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Src;
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Carry;
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Inst;
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Shift;
+import net.maisikoleni.am2900me.logic.microinstr._CE_M;
+import net.maisikoleni.am2900me.logic.microinstr._CE_µ;
+
 /**
  * The combination of {@link Am2904} and {@link Am2901x4}; everything wired up
  * to one unit because it behaves like one and helps to reduce input/output

@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import net.maisikoleni.am2900me.logic.MachineRAM;
 import net.maisikoleni.am2900me.logic.MappingPROM;
+import net.maisikoleni.am2900me.util.HexIntStringConverter;
 
 /**
  * Panel for viewing and modifying the {@link MachineRAM}. (live)

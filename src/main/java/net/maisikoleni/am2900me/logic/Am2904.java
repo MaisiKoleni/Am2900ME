@@ -1,5 +1,12 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Carry;
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Inst;
+import net.maisikoleni.am2900me.logic.microinstr.Am2904_Shift;
+import net.maisikoleni.am2900me.logic.microinstr._CE_M;
+import net.maisikoleni.am2900me.logic.microinstr._CE_µ;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * The Am2904 is the "Status and Shift Control Unit". Intended to work closely
  * together with the ALU, see {@link Am2901x4}.<br>

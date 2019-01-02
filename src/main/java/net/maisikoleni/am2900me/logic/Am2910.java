@@ -1,5 +1,8 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2910_Inst;
+import net.maisikoleni.am2900me.logic.microinstr._CCEN;
+
 /**
  * The Am2910 - the "Microprogram Controller"<br>
  * Determines the address of next microinstruction to execute.

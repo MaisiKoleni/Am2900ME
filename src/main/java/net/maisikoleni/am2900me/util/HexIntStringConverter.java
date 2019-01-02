@@ -1,4 +1,4 @@
-package net.maisikoleni.am2900me.ui;
+package net.maisikoleni.am2900me.util;
 
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
