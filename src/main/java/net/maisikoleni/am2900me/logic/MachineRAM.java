@@ -113,8 +113,7 @@ public class MachineRAM {
 	}
 
 	/**
-	 * Returns true if the given page is currently in use, that is when values
-	 * located in the page are read or written by the user or machine.
+	 * Allocates the given page if it is not already allocated.
 	 * 
 	 * @author MaisiKoleni
 	 */

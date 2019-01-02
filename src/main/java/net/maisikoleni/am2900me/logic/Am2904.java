@@ -409,7 +409,7 @@ public class Am2904 {
 		output.SIO3 = BitUtil.TRI_STATE_OFF;
 		if (input._SE == 1)
 			return;
-		int code = input.mi_shift.uint_4bit | (input.I10 << 4);
+		int code = input.mi_shift.value | (input.I10 << 4);
 		switch (code) {
 		case 0b0_0000:
 			output.SIO3 = output.QIO3 = 0;
