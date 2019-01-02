@@ -6,6 +6,11 @@ import java.lang.reflect.Method;
 
 import org.testng.annotations.Test;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Func;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Src;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 @SuppressWarnings({ "static-method", "javadoc" })
 public class Am2901Test {
 

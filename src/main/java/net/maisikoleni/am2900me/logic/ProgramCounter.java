@@ -1,5 +1,11 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr._BZ_EA;
+import net.maisikoleni.am2900me.logic.microinstr._BZ_ED;
+import net.maisikoleni.am2900me.logic.microinstr._BZ_INC;
+import net.maisikoleni.am2900me.logic.microinstr._BZ_LD;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * The machines program counter.
  *

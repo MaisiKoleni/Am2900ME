@@ -1,4 +1,4 @@
-package net.maisikoleni.am2900me.logic;
+package net.maisikoleni.am2900me.util;
 
 /**
  * Utility class for bit-operations and similar

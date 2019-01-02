@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import net.maisikoleni.am2900me.logic.MappingPROM;
+import net.maisikoleni.am2900me.util.HexIntStringConverter;
 
 /**
  * Panel for viewing and programming the {@link MappingPROM}.

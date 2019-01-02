@@ -1,5 +1,14 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.ASEL;
+import net.maisikoleni.am2900me.logic.microinstr.Am2910_Inst;
+import net.maisikoleni.am2900me.logic.microinstr.BSEL;
+import net.maisikoleni.am2900me.logic.microinstr.KMUX;
+import net.maisikoleni.am2900me.logic.microinstr.MicroInstruction;
+import net.maisikoleni.am2900me.logic.microinstr._ABUS;
+import net.maisikoleni.am2900me.logic.microinstr._DBUS;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * A simple, basic Am2900 machine that does not support interrupts at the
  * moment.

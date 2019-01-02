@@ -1,5 +1,10 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Func;
+import net.maisikoleni.am2900me.logic.microinstr.Am2901_Src;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * The Am2901 - a "Four-Bit Bipolar Microprocessor Slice"<br>
  * The ALU of a Am2900 Machine, multiple of which are combined to work with 4

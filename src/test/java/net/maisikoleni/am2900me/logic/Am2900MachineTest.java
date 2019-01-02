@@ -4,6 +4,12 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
 
+import net.maisikoleni.am2900me.logic.microinstr.Am2910_Inst;
+import net.maisikoleni.am2900me.logic.microinstr.MicroInstruction;
+import net.maisikoleni.am2900me.logic.microinstr._BZ_EA;
+import net.maisikoleni.am2900me.logic.microinstr._BZ_INC;
+import net.maisikoleni.am2900me.logic.microinstr._IR_LD;
+
 @SuppressWarnings({ "static-method", "javadoc" })
 public class Am2900MachineTest {
 

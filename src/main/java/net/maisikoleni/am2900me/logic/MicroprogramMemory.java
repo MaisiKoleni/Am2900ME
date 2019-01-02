@@ -1,5 +1,8 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.logic.microinstr.MicroInstruction;
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * The microprogram memory stores 4096 microinstructions that are addressed by
  * the {@link Am2910}s Y output.

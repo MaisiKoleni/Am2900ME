@@ -1,5 +1,7 @@
 package net.maisikoleni.am2900me.logic;
 
+import net.maisikoleni.am2900me.util.BitUtil;
+
 /**
  * The Mapping PROM maps the {@link InstructionRegister}s 8 bit OP-Code to the
  * correct microinstruction address.
