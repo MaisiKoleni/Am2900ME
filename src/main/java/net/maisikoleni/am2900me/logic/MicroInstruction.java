@@ -188,6 +188,26 @@ interface µIField {
 	String getFullName();
 }
 
+abstract class NBitsUInt {
+	public final int value;
+	public final int bits;
+
+	public NBitsUInt(int bits, int value) {
+		if (BitUtil.isInRange(bits - 1, 5))
+			throw new IllegalArgumentException("illegal number of bits: " + bits);
+		if (!BitUtil.isInRange(value, bits))
+			throw new IllegalArgumentException(
+					"argument must be an " + bits + " bit unsigned integer but was " + value);
+		this.bits = bits;
+		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return BitUtil.toNbitString(value, bits);
+	}
+}
+
 enum _MWE implements µIField {
 	W,
 	R;
@@ -248,25 +268,16 @@ enum _BZ_LD implements µIField {
 	}
 }
 
-class BAR implements µIField {
+class BAR extends NBitsUInt implements µIField {
 	static final BAR NONE = new BAR(0x000);
 
-	final int uint_12bit;
-
 	public BAR(int uint_12bit) {
-		if ((uint_12bit & 0xFF_FF_F0_00) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 12 bit integer but was " + uint_12bit);
-		this.uint_12bit = uint_12bit;
+		super(12, uint_12bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Direktadressfeld";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_12bit, 12);
 	}
 }
 
@@ -441,25 +452,16 @@ enum _CE_µ implements µIField {
 	}
 }
 
-class Am2904_Shift implements µIField {
+class Am2904_Shift extends NBitsUInt implements µIField {
 	static final Am2904_Shift NONE = new Am2904_Shift(0x0);
 
-	final int uint_4bit;
-
 	public Am2904_Shift(int uint_4bit) {
-		if ((uint_4bit & 0xFF_FF_FF_F0) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 4 bit integer but was " + uint_4bit);
-		this.uint_4bit = uint_4bit;
+		super(4, uint_4bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Instruktionsbit des Am2904 - Schiebesteuerung";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_4bit, 4);
 	}
 }
 
@@ -505,25 +507,16 @@ enum BSEL implements µIField {
 	}
 }
 
-class RB_ADDR implements µIField {
+class RB_ADDR extends NBitsUInt implements µIField {
 	static final RB_ADDR NONE = new RB_ADDR(0x00);
 
-	final int uint_8bit;
-
 	public RB_ADDR(int uint_8bit) {
-		if ((uint_8bit & 0xFF_FF_FF_00) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 8 bit integer but was " + uint_8bit);
-		this.uint_8bit = uint_8bit;
+		super(8, uint_8bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Register B Direktadresse";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_8bit, 8);
 	}
 }
 
@@ -537,25 +530,16 @@ enum ASEL implements µIField {
 	}
 }
 
-class RA_ADDR implements µIField {
+class RA_ADDR extends NBitsUInt implements µIField {
 	static final RA_ADDR NONE = new RA_ADDR(0x00);
 
-	final int uint_8bit;
-
 	public RA_ADDR(int uint_8bit) {
-		if ((uint_8bit & 0xFF_FF_FF_00) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 8 bit integer but was " + uint_8bit);
-		this.uint_8bit = uint_8bit;
+		super(8, uint_8bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Register A Direktadresse";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_8bit, 8);
 	}
 }
 
@@ -619,25 +603,16 @@ enum Am2901_Src implements µIField {
 	}
 }
 
-class Konst implements µIField {
+class Konst extends NBitsUInt implements µIField {
 	static final Konst NONE = new Konst(0x0000);
 
-	final int uint_16bit;
-
 	public Konst(int uint_16bit) {
-		if ((uint_16bit & 0xFF_FF_00_00) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 16 bit integer but was " + uint_16bit);
-		this.uint_16bit = uint_16bit;
+		super(16, uint_16bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Konstantenfeld";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_16bit, 16);
 	}
 }
 
@@ -651,25 +626,16 @@ enum KMUX implements µIField {
 	}
 }
 
-class Interrupt implements µIField {
+class Interrupt extends NBitsUInt implements µIField {
 	static final Interrupt NONE = new Interrupt(0x0);
 
-	final int uint_4bit;
-
 	public Interrupt(int uint_4bit) {
-		if ((uint_4bit & 0xFF_FF_FF_F0) != 0)
-			throw new IllegalArgumentException("argument must be an unsigned 4 bit integer but was " + uint_4bit);
-		this.uint_4bit = uint_4bit;
+		super(4, uint_4bit);
 	}
 
 	@Override
 	public String getFullName() {
 		return "Interruptsteuerung";
-	}
-
-	@Override
-	public String toString() {
-		return BitUtil.toNbitString(uint_4bit, 4);
 	}
 }
 

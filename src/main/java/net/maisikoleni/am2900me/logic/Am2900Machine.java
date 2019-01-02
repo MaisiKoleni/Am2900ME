@@ -61,9 +61,9 @@ public class Am2900Machine {
 		ir.input._IR_LD = mi.ir_ld;
 		ir.input.data = dataBus;
 		ir.process();
-		int ra_addr = (mi.asel == ASEL.IR) ? ir.output.regAAddr : mi.ra_addr.uint_8bit;
-		int rb_addr = (mi.bsel == BSEL.IR) ? ir.output.regBAddr : mi.rb_addr.uint_8bit;
-		int d = mi.kmux == KMUX.D ? dataBus : mi.k.uint_16bit;
+		int ra_addr = (mi.asel == ASEL.IR) ? ir.output.regAAddr : mi.ra_addr.value;
+		int rb_addr = (mi.bsel == BSEL.IR) ? ir.output.regBAddr : mi.rb_addr.value;
+		int d = mi.kmux == KMUX.D ? dataBus : mi.k.value;
 		if (d == BitUtil.TRI_STATE_OFF)
 			throw new IllegalStateException("no data bus signal to use in K-MUX");
 		// Am2904 and Am2901
@@ -95,7 +95,7 @@ public class Am2900Machine {
 		am2910.input._CCEN = mi.ccen;
 		am2910.input._CC = am2904_01x4.output.CT;
 		if (am2910.output._PL == 0)
-			am2910.input.D = mi.bar.uint_12bit;
+			am2910.input.D = mi.bar.value;
 		else if (am2910.output._MAP == 0)
 			am2910.input.D = mProm.output.miAddress;
 		else // no support for _VECT / interrupts jet
