@@ -16,7 +16,7 @@ public class Am2900MachineTest {
 	@Test(priority = 1)
 	public void testNop() {
 		Am2900Machine m = new Am2900Machine();
-		MicroInstruction mi = new MicroInstruction();
+		MicroInstruction mi = MicroInstruction.DEFAULT;
 		m.mpm.setInstruction(0, mi);
 		m.mpm.setInstruction(1, mi);
 		m.mpm.setInstruction(2, mi);
@@ -29,13 +29,9 @@ public class Am2900MachineTest {
 	@Test(priority = 2)
 	public void testIFetch() {
 		Am2900Machine m = new Am2900Machine();
-		MicroInstruction mi1 = new MicroInstruction();
-		mi1.bz_ea = _BZ_EA.E;
-		MicroInstruction mi2 = new MicroInstruction();
-		mi2.bz_inc = _BZ_INC.I;
-		mi2.ir_ld = _IR_LD.L;
-		MicroInstruction mi3 = new MicroInstruction();
-		mi3.am2910_Inst = Am2910_Inst.JMAP;
+		MicroInstruction mi1 = MicroInstruction.DEFAULT.withBz_ea(_BZ_EA.E);
+		MicroInstruction mi2 = MicroInstruction.DEFAULT.withBz_inc(_BZ_INC.I).withIr_ld(_IR_LD.L);
+		MicroInstruction mi3 = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JMAP);
 		m.mpm.setInstruction(0, mi1);
 		m.mpm.setInstruction(1, mi2);
 		m.mpm.setInstruction(2, mi3);
@@ -58,8 +54,7 @@ public class Am2900MachineTest {
 	public void testSpeed1() {
 		final int LARGE_NUM = 15_000_000;
 		Am2900Machine m = new Am2900Machine();
-		MicroInstruction mi = new MicroInstruction();
-		mi.am2910_Inst = Am2910_Inst.JZ;
+		MicroInstruction mi = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JZ);
 		m.mpm.setInstruction(0, mi);
 		m.executeNext();
 		long t1 = System.currentTimeMillis();
@@ -75,13 +70,9 @@ public class Am2900MachineTest {
 	public void testSpeed2() {
 		final int LARGE_NUM = 5_000_000;
 		Am2900Machine m = new Am2900Machine();
-		MicroInstruction mi1 = new MicroInstruction();
-		mi1.bz_ea = _BZ_EA.E;
-		MicroInstruction mi2 = new MicroInstruction();
-		mi2.bz_inc = _BZ_INC.I;
-		mi2.ir_ld = _IR_LD.L;
-		MicroInstruction mi3 = new MicroInstruction();
-		mi3.am2910_Inst = Am2910_Inst.JMAP;
+		MicroInstruction mi1 = MicroInstruction.DEFAULT.withBz_ea(_BZ_EA.E);
+		MicroInstruction mi2 = MicroInstruction.DEFAULT.withBz_inc(_BZ_INC.I).withIr_ld(_IR_LD.L);
+		MicroInstruction mi3 = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JMAP);
 		m.mpm.setInstruction(0, mi1);
 		m.mpm.setInstruction(1, mi2);
 		m.mpm.setInstruction(2, mi3);
