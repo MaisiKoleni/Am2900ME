@@ -25,6 +25,7 @@ public class Am2900Machine {
 	final MachineRAM machineRam = new MachineRAM();
 
 	private MicroInstruction mi;
+	private int currentMI = -1;
 	private int dataBus;
 	private int addrBus;
 
@@ -34,8 +35,7 @@ public class Am2900Machine {
 	 * @author MaisiKoleni
 	 */
 	public Am2900Machine() {
-		mi = new MicroInstruction();
-		mi.am2910_Inst = Am2910_Inst.JZ;
+		mi = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JZ);
 		am2904_01x4.input._OEY = 1;
 		am2904_01x4.input._OECT = 0;
 		am2910.input._OE = 0;
@@ -111,7 +111,8 @@ public class Am2900Machine {
 			throw new IllegalStateException("interrupts are currently not supported");
 		am2910.processStep2();
 		// Microprogram memory
-		mi = mpm.getInstruction(am2910.output.Y);
+		currentMI = am2910.output.Y;
+		mi = mpm.getInstruction(currentMI);
 		// memory save
 		machineRam.input.data = dataBus;
 		machineRam.input.addr = addrBus;
@@ -134,38 +135,35 @@ public class Am2900Machine {
 		addrBus = signal;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final ProgramCounter getPc() {
 		return pc;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final InstructionRegister getIr() {
 		return ir;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final MappingPROM getmProm() {
 		return mProm;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final Am2910 getAm2910() {
 		return am2910;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final Am2904_01x4 getAm2904_01x4() {
 		return am2904_01x4;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final MicroprogramMemory getMpm() {
 		return mpm;
 	}
 
-	@SuppressWarnings("javadoc")
 	public final MachineRAM getMachineRam() {
 		return machineRam;
+	}
+
+	public final int getCurrentMicroInstruction() {
+		return currentMI;
 	}
 }

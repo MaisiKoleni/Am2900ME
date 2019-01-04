@@ -34,4 +34,13 @@ public class MicroprogramMemory {
 			throw new IllegalArgumentException("microprogram memory address out of bounds: " + address);
 		instructions[address] = mi;
 	}
+
+	/**
+	 * Returns the size of the microprogram memory
+	 * 
+	 * @author MaisiKoleni
+	 */
+	public int size() {
+		return instructions.length;
+	}
 }
