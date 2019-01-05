@@ -1,9 +1,7 @@
 package net.maisikoleni.am2900me.ui;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -23,12 +21,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 import net.maisikoleni.am2900me.logic.Am2900Machine;
 import net.maisikoleni.am2900me.logic.MicroprogramMemory;
 import net.maisikoleni.am2900me.logic.microinstr.ASEL;
@@ -62,6 +60,7 @@ import net.maisikoleni.am2900me.logic.microinstr._MWE;
 import net.maisikoleni.am2900me.logic.microinstr.µIField;
 import net.maisikoleni.am2900me.util.AdvBindings;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
+import net.maisikoleni.am2900me.util.IOUtil;
 import net.maisikoleni.am2900me.util.NBitsUInt;
 import net.maisikoleni.am2900me.util.UniversalHexIntStringConverter;
 
@@ -139,36 +138,37 @@ public class MicroInstrPanel extends BorderPane {
 		Button execNext = new Button();
 		execNext.textProperty()
 				.bind(Bindings.when(currentMI.isEqualTo(-1)).then("Startup Machine").otherwise("Execute Next"));
-		execNext.setOnAction(e -> executeNext());
+		execNext.setOnAction(e -> executeNextN(1));
+		Button execNextN = new Button();
+		execNextN.textProperty().bind(Bindings.when(currentMI.isEqualTo(-1)).then("Startup Machine and Execute Next N")
+				.otherwise("Execute Next N"));
+		execNextN.setOnAction(e -> {
+			TextInputDialog t = new TextInputDialog("20");
+			t.setTitle("Please enter the number of microinstruction cycles you want to execute");
+			Optional<String> input = t.showAndWait();
+			if (!input.isPresent() || input.get().trim().isEmpty())
+				return;
+			try {
+				executeNextN(Integer.decode(input.get()));
+			} catch (@SuppressWarnings("unused") NumberFormatException ex) {
+				Alert a = new Alert(AlertType.ERROR, "The entered string is not a valid integer", ButtonType.OK);
+				a.initOwner(this.getScene().getWindow());
+				a.show();
+			}
+		});
 		Button loadFile = new Button("Load from File");
-		loadFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showOpenDialog(null);
-			try {
-				readCSV(Files.readAllLines(f.toPath()));
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
+		loadFile.setOnAction(e -> IOUtil.readLines(this, this::readCSV));
 		Button saveFile = new Button("Save to File");
-		saveFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showSaveDialog(null);
-			try {
-				Files.write(f.toPath(), toCSV(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
-		ToolBar tb = new ToolBar(execNext, loadFile, saveFile);
+		saveFile.setOnAction(e -> IOUtil.writeLines(this, this::toCSV));
+		ToolBar tb = new ToolBar(execNext, execNextN, loadFile, saveFile);
 		setTop(tb);
 	}
 
-	private void executeNext() {
+	private void executeNextN(int n) {
 		try {
-			m.executeNext();
+			for (int i = 0; i < n; i++) {
+				m.executeNext();
+			}
 		} catch (Exception ex) {
 			Alert a = new Alert(AlertType.ERROR, "An error occured during execution:\n" + ex, ButtonType.CLOSE);
 			a.show();
@@ -230,7 +230,7 @@ public class MicroInstrPanel extends BorderPane {
 		String[] parts = s.split(",");
 		newMI = newMI.withMwe(_MWE.valueOf(parts[1]));
 		newMI = newMI.withIr_ld(_IR_LD.valueOf(parts[2]));
-		newMI = newMI.withBz_ea(_BZ_EA.valueOf(parts[2]));
+		newMI = newMI.withBz_ea(_BZ_EA.valueOf(parts[3]));
 		newMI = newMI.withBz_inc(_BZ_INC.valueOf(parts[4]));
 		newMI = newMI.withBz_ed(_BZ_ED.valueOf(parts[5]));
 		newMI = newMI.withBz_ld(_BZ_LD.valueOf(parts[6]));
@@ -239,7 +239,7 @@ public class MicroInstrPanel extends BorderPane {
 		newMI = newMI.withCcen(_CCEN.valueOf(parts[9]));
 		newMI = newMI.withAm2904_Inst(Am2904_Inst.valueOf(parts[10]));
 		newMI = newMI.withCe_m(_CE_M.valueOf(parts[11]));
-		newMI = newMI.withCe_µ(_CE_µ.valueOf(parts[11]));
+		newMI = newMI.withCe_µ(_CE_µ.valueOf(parts[12]));
 		newMI = newMI.withAm2904_Shift(new Am2904_Shift(Integer.decode(parts[13])));
 		newMI = newMI.withAm2904_Carry(Am2904_Carry.valueOf(parts[14]));
 		newMI = newMI.withDbus(_DBUS.valueOf(parts[15]));

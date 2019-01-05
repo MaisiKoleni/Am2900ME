@@ -1,8 +1,5 @@
 package net.maisikoleni.am2900me.ui;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import javafx.beans.property.IntegerProperty;
@@ -13,19 +10,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 import net.maisikoleni.am2900me.logic.MappingPROM;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
+import net.maisikoleni.am2900me.util.IOUtil;
 
 /**
  * Panel for viewing and programming the {@link MappingPROM}.
@@ -59,27 +53,9 @@ public class MappingPromPanel extends BorderPane {
 
 	private void configureToolbar() {
 		Button loadFile = new Button("Load from File");
-		loadFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showOpenDialog(null);
-			try {
-				readCSV(Files.readAllLines(f.toPath()));
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
+		loadFile.setOnAction(e -> IOUtil.readLines(this, this::readCSV));
 		Button saveFile = new Button("Save to File");
-		saveFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showSaveDialog(null);
-			try {
-				Files.write(f.toPath(), toCSV(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
+		saveFile.setOnAction(e -> IOUtil.writeLines(this, this::toCSV));
 		ToolBar tb = new ToolBar(loadFile, saveFile);
 		setTop(tb);
 	}
