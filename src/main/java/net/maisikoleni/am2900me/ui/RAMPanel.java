@@ -1,8 +1,5 @@
 package net.maisikoleni.am2900me.ui;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,10 +9,7 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -26,10 +20,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import net.maisikoleni.am2900me.logic.MachineRAM;
 import net.maisikoleni.am2900me.logic.MappingPROM;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
+import net.maisikoleni.am2900me.util.IOUtil;
 
 /**
  * Panel for viewing and modifying the {@link MachineRAM}. (live)
@@ -76,28 +70,9 @@ public class RAMPanel extends BorderPane {
 		Button update = new Button("Update page values");
 		update.setOnAction(e -> updatePage(false));
 		Button loadFile = new Button("Load from File");
-		loadFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showOpenDialog(null);
-			try {
-				readCSV(Files.readAllLines(f.toPath()));
-				updatePage(false);
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
+		loadFile.setOnAction(e -> IOUtil.readLines(this, this::readCSV));
 		Button saveFile = new Button("Save to File");
-		saveFile.setOnAction(e -> {
-			FileChooser fc = new FileChooser();
-			File f = fc.showSaveDialog(null);
-			try {
-				Files.write(f.toPath(), toCSV(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-			} catch (Exception ex) {
-				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
-				a.show();
-			}
-		});
+		saveFile.setOnAction(e -> IOUtil.writeLines(this, this::toCSV));
 		actions = new ToolBar(pageLabel, pageChooser, update, loadFile, saveFile);
 		setupListeners();
 		setTop(actions);
