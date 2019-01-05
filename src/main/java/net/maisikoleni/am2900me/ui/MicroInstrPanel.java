@@ -140,11 +140,14 @@ public class MicroInstrPanel extends BorderPane {
 				.bind(Bindings.when(currentMI.isEqualTo(-1)).then("Startup Machine").otherwise("Execute Next"));
 		execNext.setOnAction(e -> executeNextN(1));
 		Button execNextN = new Button();
-		execNextN.textProperty().bind(Bindings.when(currentMI.isEqualTo(-1)).then("Startup Machine and Execute Next N")
+		execNextN.textProperty().bind(Bindings.when(currentMI.isEqualTo(-1)).then("Execute Next N (inkl. Startup)")
 				.otherwise("Execute Next N"));
 		execNextN.setOnAction(e -> {
 			TextInputDialog t = new TextInputDialog("20");
-			t.setTitle("Please enter the number of microinstruction cycles you want to execute");
+			t.initOwner(this.getScene().getWindow());
+			t.setTitle("Execute Next N");
+			t.setHeaderText("Please enter the number of microinstruction cycles you want to execute");
+			t.setContentText("positive integer (expect 5 mio. to take ~ 1 sec.)");
 			Optional<String> input = t.showAndWait();
 			if (!input.isPresent() || input.get().trim().isEmpty())
 				return;
