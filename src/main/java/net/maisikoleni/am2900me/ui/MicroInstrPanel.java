@@ -119,7 +119,7 @@ public class MicroInstrPanel extends BorderPane {
 		addrCol.setEditable(false);
 		addrCol.setSortable(false);
 		miTable.getColumns().add(addrCol);
-		for (int i = 0; i < MicroInstruction.FIELD_NAMES.size(); i++) {
+		for (int i = MicroInstruction.FIELD_NAMES.size() - 1; i >= 0; i--) {
 			µIField f = MicroInstruction.FIELD_DEFAULTS.get(i);
 			TableColumn<MicroInstrItem, ?> col;
 			if (f instanceof Enum<?>)
