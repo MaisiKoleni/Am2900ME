@@ -4,7 +4,7 @@ abstract public class NBitsUInt {
 	public final int value;
 	public final int bits;
 
-	public NBitsUInt(int bits, int value) {
+	protected NBitsUInt(int bits, int value) {
 		if (!BitUtil.isInRange(bits - 1, 5))
 			throw new IllegalArgumentException("illegal number of bits: " + bits);
 		if (!BitUtil.isInRange(value, bits))
@@ -16,7 +16,7 @@ abstract public class NBitsUInt {
 
 	@Override
 	public String toString() {
-		return BitUtil.toNbitString(value, bits);
+		return HexIntStringConverter.forNibbles(bits / 4).toString(value);
 	}
 
 	@Override
