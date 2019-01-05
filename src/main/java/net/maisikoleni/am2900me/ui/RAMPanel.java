@@ -1,5 +1,9 @@
 package net.maisikoleni.am2900me.ui;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -8,7 +12,10 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -19,6 +26,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import net.maisikoleni.am2900me.logic.MachineRAM;
 import net.maisikoleni.am2900me.logic.MappingPROM;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
@@ -67,7 +75,30 @@ public class RAMPanel extends BorderPane {
 		page = IntegerProperty.integerProperty(pageChooser.valueProperty());
 		Button update = new Button("Update page values");
 		update.setOnAction(e -> updatePage(false));
-		actions = new ToolBar(pageLabel, pageChooser, update);
+		Button loadFile = new Button("Load from File");
+		loadFile.setOnAction(e -> {
+			FileChooser fc = new FileChooser();
+			File f = fc.showOpenDialog(null);
+			try {
+				readCSV(Files.readAllLines(f.toPath()));
+				updatePage(false);
+			} catch (Exception ex) {
+				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
+				a.show();
+			}
+		});
+		Button saveFile = new Button("Save to File");
+		saveFile.setOnAction(e -> {
+			FileChooser fc = new FileChooser();
+			File f = fc.showSaveDialog(null);
+			try {
+				Files.write(f.toPath(), toCSV(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+			} catch (Exception ex) {
+				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
+				a.show();
+			}
+		});
+		actions = new ToolBar(pageLabel, pageChooser, update, loadFile, saveFile);
 		setupListeners();
 		setTop(actions);
 	}
@@ -121,6 +152,36 @@ public class RAMPanel extends BorderPane {
 		currentPage.setVisible(inUse);
 	}
 
+	private final Iterable<String> toCSV() {
+		ArrayList<String> lines = new ArrayList<>();
+		int pageSize = ram.cellCount();
+		for (int i = 0; i < ram.pageCount(); i++) {
+			if (!ram.isPageInUse(i))
+				continue;
+			for (int k = 0; k < pageSize; k += 16) {
+				int offset = i * pageSize + k;
+				StringBuilder sb = new StringBuilder();
+				sb.append(HexIntStringConverter.INT_16.toString(offset) + ",");
+				for (int j = 0; j < 15; j++) {
+					sb.append(HexIntStringConverter.INT_16.toString((int) ram.get(offset + j)) + ",");
+				}
+				sb.append(HexIntStringConverter.INT_16.toString((int) ram.get(offset + 15)));
+				lines.add(sb.toString());
+			}
+		}
+		return lines;
+	}
+
+	private final void readCSV(Iterable<String> lines) {
+		for (String line : lines) {
+			String[] parts = line.split(",");
+			int offset = Integer.decode(parts[0]);
+			for (int i = 0; i < 16; i++) {
+				ram.set(offset + i, Integer.decode(parts[i + 1]));
+			}
+		}
+	}
+
 	private int getValue(int inPageAddress) {
 		return ram.get(page.get() * ram.cellCount() + inPageAddress);
 	}
@@ -129,7 +190,7 @@ public class RAMPanel extends BorderPane {
 		ram.set(page.get() * ram.cellCount() + inPageAddress, value);
 	}
 
-	@SuppressWarnings({ "javadoc", "synthetic-access" })
+	@SuppressWarnings("synthetic-access")
 	public class RAM16CellRow {
 		private final IntegerProperty[] columns = new SimpleIntegerProperty[16];
 		private final IntegerProperty offset;

@@ -10,7 +10,7 @@ import net.maisikoleni.am2900me.logic.microinstr._BZ_EA;
 import net.maisikoleni.am2900me.logic.microinstr._BZ_INC;
 import net.maisikoleni.am2900me.logic.microinstr._IR_LD;
 
-@SuppressWarnings({ "static-method", "javadoc" })
+@SuppressWarnings({ "static-method" })
 public class Am2900MachineTest {
 
 	@Test(priority = 1)

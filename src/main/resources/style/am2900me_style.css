@@ -1,0 +1,20 @@
+.root {
+	-fx-font-family: "Consolas", "monospaced";
+    /*-fx-base: rgb(50,50,50);
+    -fx-background: -fx-base;
+    -fx-control-inner-background: rgb(40,40,40);
+    -fx-control-inner-background-alt: rgb(45,45,45);
+    -fx-faint-focus-color: -fx-accent;
+    -fx-hover-base: rgb(180,180,180);
+    -fx-pressed-base: derive(-fx-hover-base, -15%);
+    -fx-box-border: -fx-hover-base;
+    -fx-text-box-border: -fx-hover-base;
+    -fx-shadow-highlight-color: rgb(120,30,30);
+    -fx-outer-border: -fx-hover-base;
+    -fx-focus-color: rgb(120,30,30);*/
+    -fx-accent: rgb(250,100,60);
+}
+
+.changed-mi {
+	-fx-background-color: lightsteelblue;
+}

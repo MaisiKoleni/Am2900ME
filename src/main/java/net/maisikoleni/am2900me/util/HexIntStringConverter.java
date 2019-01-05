@@ -10,7 +10,6 @@ import javafx.util.converter.IntegerStringConverter;
  *
  * @author MaisiKoleni
  */
-@SuppressWarnings("javadoc")
 public class HexIntStringConverter extends StringConverter<Integer> {
 
 	public static final HexIntStringConverter INT_4 = new HexIntStringConverter(1);
@@ -46,5 +45,28 @@ public class HexIntStringConverter extends StringConverter<Integer> {
 
 	public int cast(int value) {
 		return value & mask;
+	}
+
+	public static HexIntStringConverter forNibbles(int n) {
+		switch (n) {
+		case 1:
+			return INT_4;
+		case 2:
+			return INT_8;
+		case 3:
+			return INT_12;
+		case 4:
+			return INT_16;
+		case 5:
+			return INT_20;
+		case 6:
+			return INT_24;
+		case 7:
+			return INT_28;
+		case 8:
+			return INT_32;
+		default:
+			throw new IllegalArgumentException("invalid number of int nibbles: " + n);
+		}
 	}
 }

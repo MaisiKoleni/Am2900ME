@@ -1,17 +1,29 @@
 package net.maisikoleni.am2900me.ui;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import net.maisikoleni.am2900me.logic.MappingPROM;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
 
@@ -42,6 +54,34 @@ public class MappingPromPanel extends BorderPane {
 		addrTable = new TableView<>(entries);
 		configureTableView();
 		setCenter(addrTable);
+		configureToolbar();
+	}
+
+	private void configureToolbar() {
+		Button loadFile = new Button("Load from File");
+		loadFile.setOnAction(e -> {
+			FileChooser fc = new FileChooser();
+			File f = fc.showOpenDialog(null);
+			try {
+				readCSV(Files.readAllLines(f.toPath()));
+			} catch (Exception ex) {
+				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
+				a.show();
+			}
+		});
+		Button saveFile = new Button("Save to File");
+		saveFile.setOnAction(e -> {
+			FileChooser fc = new FileChooser();
+			File f = fc.showSaveDialog(null);
+			try {
+				Files.write(f.toPath(), toCSV(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+			} catch (Exception ex) {
+				Alert a = new Alert(AlertType.ERROR, "Load from File failed:\n" + ex, ButtonType.CLOSE);
+				a.show();
+			}
+		});
+		ToolBar tb = new ToolBar(loadFile, saveFile);
+		setTop(tb);
 	}
 
 	private void configureTableView() {
@@ -63,29 +103,57 @@ public class MappingPromPanel extends BorderPane {
 		comments.setEditable(true);
 		comments.setReorderable(false);
 
-//		addrTable.getSortOrder().add(opCodes);
 		addrTable.getColumns().add(opCodes);
 		addrTable.getColumns().add(mapAddresses);
 		addrTable.getColumns().add(comments);
 		addrTable.setEditable(true);
 	}
 
-	@SuppressWarnings("javadoc")
+	private final Iterable<String> toCSV() {
+		ArrayList<String> lines = new ArrayList<>();
+		for (MappingEntry me : entries) {
+			lines.add(me.toString());
+		}
+		return lines;
+	}
+
+	private final void readCSV(Iterable<String> lines) {
+		for (String line : lines) {
+			MappingEntry newME = parseME(line);
+			entries.set(newME.opCode.get(), newME);
+		}
+	}
+
+	public MappingEntry parseME(String s) {
+		String[] parts = s.split(",", 3);
+		MappingEntry me = new MappingEntry(Integer.decode(parts[0]));
+		me.mappingAddr.set(Integer.decode(parts[1]));
+		me.comment.set(parts[2]);
+		return me;
+	}
+
 	public class MappingEntry implements Comparable<MappingEntry> {
 		static final String PROP_OP_CODE = "opCode";
 		static final String PROP_ADDRESS = "mappingAddr";
 		static final String PROP_COMMENT = "comment";
 
-		private final IntegerProperty opCode;
-		private final IntegerProperty mappingAddr;
-		private final StringProperty comment;
+		final ReadOnlyIntegerProperty opCode;
+		final IntegerProperty mappingAddr;
+		final StringProperty comment;
 
 		@SuppressWarnings("synthetic-access")
 		MappingEntry(int opCode) {
-			this.opCode = new SimpleIntegerProperty(this, PROP_OP_CODE, opCode);
+			this.opCode = new ReadOnlyIntegerWrapper(this, PROP_OP_CODE, opCode);
 			this.mappingAddr = new SimpleIntegerProperty(this, PROP_ADDRESS, opCode << 4);
 			this.mappingAddr.addListener((obs, o, n) -> MappingPromPanel.this.mprom.set(opCode, n.intValue()));
 			this.comment = new SimpleStringProperty(this, PROP_COMMENT, "");
+			MappingPromPanel.this.mprom.set(opCode, mappingAddr.get());
+		}
+
+		@Override
+		public String toString() {
+			return HexIntStringConverter.INT_8.toString(opCode.get()) + ","
+					+ HexIntStringConverter.INT_12.toString(mappingAddr.get()) + "," + comment.get();
 		}
 
 		public final ReadOnlyIntegerProperty opCodeProperty() {
