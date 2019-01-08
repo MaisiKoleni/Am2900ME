@@ -3,6 +3,7 @@ package net.maisikoleni.am2900me.util;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ObservableValue;
@@ -38,8 +39,10 @@ public class AdvBindings {
 	public static <T, U> ObjectBinding<U> map(ObservableValue<T> observable, Function<T, ObservableValue<U>> mapping) {
 		return new ObjectBinding<>() {
 			private ObservableValue<U> dependTwo;
+			private ObservableList<Observable> depend;
 			{
 				observable.addListener(e -> updateMapping());
+				depend = FXCollections.observableArrayList(observable);
 				bind(observable);
 				updateMapping();
 			}
@@ -55,11 +58,18 @@ public class AdvBindings {
 			}
 
 			private void updateMapping() {
-				if (dependTwo != null)
-					super.unbind(dependTwo);
-				dependTwo = mapping.apply(observable.getValue());
-				if (dependTwo != null)
-					super.bind(dependTwo);
+				ObservableValue<U> newDT = mapping.apply(observable.getValue());
+				if (newDT != dependTwo) {
+					if (dependTwo != null) {
+						depend.remove(dependTwo);
+						super.unbind(dependTwo);
+					}
+					if (newDT != null) {
+						depend.add(newDT);
+						super.bind(newDT);
+					}
+					dependTwo = newDT;
+				}
 			}
 
 			@Override
@@ -71,10 +81,7 @@ public class AdvBindings {
 
 			@Override
 			public ObservableList<?> getDependencies() {
-				if (dependTwo != null)
-					return FXCollections.unmodifiableObservableList(
-							FXCollections.<ObservableValue<?>>observableArrayList(observable, dependTwo));
-				return FXCollections.singletonObservableList(observable);
+				return FXCollections.unmodifiableObservableList(depend);
 			}
 		};
 	}

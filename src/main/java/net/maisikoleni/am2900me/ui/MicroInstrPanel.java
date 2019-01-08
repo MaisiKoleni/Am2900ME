@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToolBar;
@@ -62,6 +61,7 @@ import net.maisikoleni.am2900me.util.AdvBindings;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
 import net.maisikoleni.am2900me.util.IOUtil;
 import net.maisikoleni.am2900me.util.NBitsUInt;
+import net.maisikoleni.am2900me.util.StyleClassProperty;
 import net.maisikoleni.am2900me.util.UniversalHexIntStringConverter;
 
 /**
@@ -103,12 +103,13 @@ public class MicroInstrPanel extends BorderPane {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void configureTableView() {
 		miTable.setRowFactory(tv -> {
-			TableRow<MicroInstrItem> row = new TableRow<>();
+			StyledTableRow<MicroInstrItem> row = new StyledTableRow<>();
+			System.out.println("created new row with index " + row.getIndex() + " and item " + row.getItem());
 			BooleanBinding isDefault = AdvBindings.map(row.itemProperty(), mii -> mii == null ? null : mii.mi)
 					.isEqualTo(MicroInstruction.DEFAULT);
+			row.styleClassPropertyFor("default-mi").bind(isDefault);
 			BooleanBinding executed = row.indexProperty().isEqualTo(currentMI);
-			row.styleProperty().bind(Bindings.when(executed).then("-fx-background:lightgreen;")
-					.otherwise(Bindings.when(isDefault).then("-fx-background:lightgrey;").otherwise("")));
+			row.styleClassPropertyFor("executed-mi").bind(executed);
 			return row;
 		});
 		TableColumn<MicroInstrItem, Integer> addrCol = new TableColumn<>("Address");
@@ -122,7 +123,7 @@ public class MicroInstrPanel extends BorderPane {
 			µIField f = MicroInstruction.FIELD_DEFAULTS.get(i);
 			TableColumn<MicroInstrItem, ?> col;
 			if (f instanceof Enum<?>)
-				col = generateColumnFor((Enum) f); // TODO: more elegant enum handling?
+				col = generateColumnFor((Enum) f); // more elegant enum handling?
 			else
 				col = generateColumnFor((NBitsUInt) f);
 			col.setCellValueFactory(new PropertyValueFactory<>(MicroInstruction.FIELD_NAMES.get(i)));
@@ -186,12 +187,8 @@ public class MicroInstrPanel extends BorderPane {
 			TableCell<MicroInstrItem, T> cell = new TextFieldTableCell<>(
 					new UniversalHexIntStringConverter<T>(t -> t.value, i -> (T) defaultVal.valueOf(i),
 							HexIntStringConverter.forNibbles(defaultVal.bits / 4)));
-			cell.itemProperty().addListener((obs, o, n) -> {
-				if (n == null || n.equals(defaultVal))
-					cell.getStyleClass().remove("changed-mi");
-				else
-					cell.getStyleClass().add("changed-mi");
-			});
+			new StyleClassProperty(cell.getStyleClass(), "changed-mi")
+					.bind(cell.itemProperty().isNotEqualTo(defaultVal));
 			return cell;
 		});
 		return column;
@@ -202,12 +199,8 @@ public class MicroInstrPanel extends BorderPane {
 		T[] values = defaultVal.getDeclaringClass().getEnumConstants();
 		column.setCellFactory(list -> {
 			TableCell<MicroInstrItem, T> cell = new ChoiceBoxTableCell<>(values);
-			cell.itemProperty().addListener((obs, o, n) -> {
-				if (n == null || n.equals(defaultVal))
-					cell.getStyleClass().remove("changed-mi");
-				else
-					cell.getStyleClass().add("changed-mi");
-			});
+			new StyleClassProperty(cell.getStyleClass(), "changed-mi")
+					.bind(cell.itemProperty().isNotEqualTo(defaultVal));
 			return cell;
 		});
 		return column;
