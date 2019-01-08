@@ -15,6 +15,14 @@
     -fx-accent: rgb(250,100,60);
 }
 
+.default-mi {
+	-fx-background:lightgrey;
+}
+
+.executed-mi {
+	-fx-background:lightgreen;
+}
+
 .changed-mi {
 	-fx-background-color: lightsteelblue;
 }
