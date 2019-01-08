@@ -3,10 +3,10 @@ package net.maisikoleni.am2900me.logic.microinstr;
 import net.maisikoleni.am2900me.util.NBitsUInt;
 
 public class RB_ADDR extends NBitsUInt implements µIField {
-	static final RB_ADDR DEFAULT = new RB_ADDR(0x00);
+	static final RB_ADDR DEFAULT = new RB_ADDR(0x0);
 
-	public RB_ADDR(int uint_8bit) {
-		super(8, uint_8bit);
+	public RB_ADDR(int uint_4bit) {
+		super(4, uint_4bit);
 	}
 
 	@Override
