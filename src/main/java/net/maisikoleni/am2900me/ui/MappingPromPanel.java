@@ -76,6 +76,7 @@ public class MappingPromPanel extends BorderPane {
 		TableColumn<MappingEntry, String> comments = new TableColumn<>("Comment");
 		comments.setCellFactory(TextFieldTableCell.forTableColumn());
 		comments.setCellValueFactory(new PropertyValueFactory<>(MappingEntry.PROP_COMMENT));
+		comments.setPrefWidth(200);
 		comments.setEditable(true);
 		comments.setReorderable(false);
 

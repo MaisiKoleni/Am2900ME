@@ -102,7 +102,14 @@ public class Am2900Machine {
 		mProm.process();
 		// Am2910 - next MI address
 		am2910.input._CCEN = mi.ccen;
-		am2910.input._CC = am2904_01x4.output.CT;
+		/*
+		 * Important: Am2900 Data Book 2-88, Table 5: inverting CT to avoid confusion so
+		 * we can use column "CT = H" and ensure TUM MI machine compliance. This means
+		 * that we can test for 'is-zero' for equality and 'not-zero' for inequality. In
+		 * other words, we want to avoid the Table 5 bottom note's consequences: doing
+		 * it the counterintuitive way.
+		 */
+		am2910.input._CC = 1 - am2904_01x4.output.CT;
 		if (am2910.output._PL == 0)
 			am2910.input.D = mi.bar.value;
 		else if (am2910.output._MAP == 0)
