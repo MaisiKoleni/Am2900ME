@@ -155,6 +155,7 @@ public class RAMPanel extends BorderPane {
 				ram.set(offset + i, Integer.decode(parts[i + 1]));
 			}
 		}
+		updatePage(false);
 	}
 
 	private int getValue(int inPageAddress) {
