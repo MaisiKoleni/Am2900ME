@@ -23,6 +23,7 @@ public class StyleClassProperty extends SimpleBooleanProperty {
 		this.styleClass = styleClass;
 		this.listener = obs -> readFromList();
 		this.internalChange = false;
+		connectToList();
 	}
 
 	@Override

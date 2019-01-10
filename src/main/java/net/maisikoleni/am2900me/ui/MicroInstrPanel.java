@@ -104,7 +104,6 @@ public class MicroInstrPanel extends BorderPane {
 	private void configureTableView() {
 		miTable.setRowFactory(tv -> {
 			StyledTableRow<MicroInstrItem> row = new StyledTableRow<>();
-			System.out.println("created new row with index " + row.getIndex() + " and item " + row.getItem());
 			BooleanBinding isDefault = AdvBindings.map(row.itemProperty(), mii -> mii == null ? null : mii.mi)
 					.isEqualTo(MicroInstruction.DEFAULT);
 			row.styleClassPropertyFor("default-mi").bind(isDefault);
