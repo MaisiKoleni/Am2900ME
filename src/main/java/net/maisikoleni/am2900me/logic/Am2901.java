@@ -257,6 +257,22 @@ public class Am2901 {
 		int c4 = cnb & g & p & (p >> 1) & (p >> 2) & (p >> 3);
 		return BitUtil.or(c4);
 	}
+
+	public final int getRegisters4bit(int addr) {
+		return registers4bit[addr];
+	}
+
+	public final int getQ() {
+		return Q;
+	}
+
+	public final void setRegisters4bit(int addr, int register4bit) {
+		this.registers4bit[addr] = register4bit;
+	}
+
+	public final void setQ(int q) {
+		Q = q;
+	}
 }
 
 class Am2901input {

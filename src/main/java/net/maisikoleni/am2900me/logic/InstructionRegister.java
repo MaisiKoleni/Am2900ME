@@ -31,6 +31,14 @@ public class InstructionRegister {
 		output.regAAddr = (instruction >>> 4) & 0b0111;
 		output.regBAddr = instruction & 0b0111;
 	}
+
+	public final int getInstruction() {
+		return instruction;
+	}
+
+	public final void setInstruction(int instruction) {
+		this.instruction = instruction;
+	}
 }
 
 class InstructionRegisterInput {

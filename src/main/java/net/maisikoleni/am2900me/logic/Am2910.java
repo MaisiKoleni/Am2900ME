@@ -191,6 +191,22 @@ public class Am2910 {
 	private void clearStack() {
 		stackPointer = 0;
 	}
+
+	public final int getRegisterCounter() {
+		return registerCounter;
+	}
+
+	public final int getµPC() {
+		return µPC;
+	}
+
+	public final void setRegisterCounter(int registerCounter) {
+		this.registerCounter = registerCounter;
+	}
+
+	public final void setµPC(int μPC) {
+		µPC = μPC;
+	}
 }
 
 class Am2910input {

@@ -41,6 +41,7 @@ public class Main extends Application {
 		s.show();
 		startMPROM();
 		startRAM();
+		startRegStatus();
 	}
 
 	private void startMPROM() {
@@ -60,6 +61,18 @@ public class Main extends Application {
 		s.getIcons().addAll(icons);
 		s.setTitle(DESCRIPTOR + " - Machine RAM");
 		Scene scene = new Scene(new RAMPanel(machine.getMachineRam()));
+		scene.getStylesheets().addAll(stylesheets);
+		s.setScene(scene);
+		s.setHeight(600);
+		s.setWidth(1050);
+		s.show();
+	}
+
+	private void startRegStatus() {
+		Stage s = new Stage();
+		s.getIcons().addAll(icons);
+		s.setTitle(DESCRIPTOR + " - Registers and Status");
+		Scene scene = new Scene(new RegisterStatusPanel(machine));
 		scene.getStylesheets().addAll(stylesheets);
 		s.setScene(scene);
 		s.setHeight(600);

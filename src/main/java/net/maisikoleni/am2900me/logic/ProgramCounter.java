@@ -46,6 +46,14 @@ public class ProgramCounter {
 		if (input._BZ_INC == _BZ_INC.I)
 			pc++;
 	}
+
+	public final int getPc() {
+		return pc;
+	}
+
+	public final void setPc(int pc) {
+		this.pc = pc;
+	}
 }
 
 class ProgramCounterInput {

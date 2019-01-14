@@ -94,6 +94,86 @@ public class Am2904_01x4 {
 		output.Y = Y;
 		output.CT = am2904.output.CT;
 	}
+
+	public final int getµC() {
+		return am2904.getµC();
+	}
+
+	public final int getµN() {
+		return am2904.getµN();
+	}
+
+	public final int getµZ() {
+		return am2904.getµZ();
+	}
+
+	public final int getµOVR() {
+		return am2904.getµOVR();
+	}
+
+	public final int getMC() {
+		return am2904.getMC();
+	}
+
+	public final int getMN() {
+		return am2904.getMN();
+	}
+
+	public final int getMZ() {
+		return am2904.getMZ();
+	}
+
+	public final int getMOVR() {
+		return am2904.getMOVR();
+	}
+
+	public final void setµC(int μC) {
+		am2904.setµC(μC);
+	}
+
+	public final void setµN(int μN) {
+		am2904.setµN(μN);
+	}
+
+	public final void setµZ(int μZ) {
+		am2904.setµZ(μZ);
+	}
+
+	public final void setµOVR(int μOVR) {
+		am2904.setµOVR(μOVR);
+	}
+
+	public final void setMC(int mC) {
+		am2904.setMC(mC);
+	}
+
+	public final void setMN(int mN) {
+		am2904.setMN(mN);
+	}
+
+	public final void setMZ(int mZ) {
+		am2904.setMZ(mZ);
+	}
+
+	public final void setMOVR(int mOVR) {
+		am2904.setMOVR(mOVR);
+	}
+
+	public final int getRegisters4bit(int addr) {
+		return am2901x4.getRegisters4bit(addr);
+	}
+
+	public final int getQ() {
+		return am2901x4.getQ();
+	}
+
+	public final void setRegisters4bit(int addr, int register4bit) {
+		am2901x4.setRegisters4bit(addr, register4bit);
+	}
+
+	public final void setQ(int q) {
+		am2901x4.setQ(q);
+	}
 }
 
 class Am2904_01x4input {
