@@ -17,7 +17,7 @@ import net.maisikoleni.am2900me.logic.Am2900Machine;
  */
 public class Main extends Application {
 
-	public static final String DESCRIPTOR = "Am2900ME (v0.0.3)";
+	public static final String DESCRIPTOR = "Am2900ME (v0.0.4)";
 
 	private final Am2900Machine machine;
 	private final List<String> stylesheets = List.of(
