@@ -109,6 +109,36 @@ public class Am2901x4 {
 		// everything here is sequential, that would make it just more complicated.
 		// Maybe implement a Am2902 later just for demonstration purposes.
 	}
+
+	public final int getRegisters4bit(int addr) {
+		int reg = nibble0.getRegisters4bit(addr);
+		reg |= nibble1.getRegisters4bit(addr) << 4;
+		reg |= nibble2.getRegisters4bit(addr) << 8;
+		reg |= nibble3.getRegisters4bit(addr) << 12;
+		return reg;
+	}
+
+	public final int getQ() {
+		int reg = nibble0.getQ();
+		reg |= nibble1.getQ() << 4;
+		reg |= nibble2.getQ() << 8;
+		reg |= nibble3.getQ() << 12;
+		return reg;
+	}
+
+	public final void setRegisters4bit(int addr, int register4bit) {
+		nibble0.setRegisters4bit(addr, register4bit & 0b1111);
+		nibble1.setRegisters4bit(addr, (register4bit >> 4) & 0b1111);
+		nibble2.setRegisters4bit(addr, (register4bit >> 8) & 0b1111);
+		nibble3.setRegisters4bit(addr, (register4bit >> 12) & 0b1111);
+	}
+
+	public final void setQ(int q) {
+		nibble0.setQ(q & 0b1111);
+		nibble1.setQ((q >> 4) & 0b1111);
+		nibble2.setQ((q >> 8) & 0b1111);
+		nibble3.setQ((q >> 12) & 0b1111);
+	}
 }
 
 class Am2901x4input {

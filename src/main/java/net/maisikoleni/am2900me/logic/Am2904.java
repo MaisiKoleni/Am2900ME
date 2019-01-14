@@ -556,6 +556,70 @@ public class Am2904 {
 			throw new IllegalArgumentException("illegal am2904 shift code:" + code);
 		}
 	}
+
+	public final int getµC() {
+		return µC;
+	}
+
+	public final int getµN() {
+		return µN;
+	}
+
+	public final int getµZ() {
+		return µZ;
+	}
+
+	public final int getµOVR() {
+		return µOVR;
+	}
+
+	public final int getMC() {
+		return MC;
+	}
+
+	public final int getMN() {
+		return MN;
+	}
+
+	public final int getMZ() {
+		return MZ;
+	}
+
+	public final int getMOVR() {
+		return MOVR;
+	}
+
+	public final void setµC(int μC) {
+		µC = μC & 1;
+	}
+
+	public final void setµN(int μN) {
+		µN = μN & 1;
+	}
+
+	public final void setµZ(int μZ) {
+		µZ = μZ & 1;
+	}
+
+	public final void setµOVR(int μOVR) {
+		µOVR = μOVR & 1;
+	}
+
+	public final void setMC(int mC) {
+		MC = mC & 1;
+	}
+
+	public final void setMN(int mN) {
+		MN = mN & 1;
+	}
+
+	public final void setMZ(int mZ) {
+		MZ = mZ & 1;
+	}
+
+	public final void setMOVR(int mOVR) {
+		MOVR = mOVR & 1;
+	}
 }
 
 class Am2904input {
