@@ -48,7 +48,7 @@ public class MachineRAM {
 		if (lastAddr != BitUtil.TRI_STATE_OFF) {
 			if (last_MWE == _MWE.W) {
 				if (input.data != BitUtil.TRI_STATE_OFF)
-					getPage(lastAddr)[lastAddr & 0x0FFF] = (short) input.data;
+					setIntern(lastAddr, (short) input.data);
 				else
 					throw new IllegalStateException("cannot write data from data bus to memory, no data signals");
 			}
@@ -73,7 +73,11 @@ public class MachineRAM {
 	 * @author MaisiKoleni
 	 */
 	public void set(int address, int shortValue) {
-		getPage(address)[address & 0x0FFF] = (short) shortValue;
+		setIntern(address, (short) shortValue);
+	}
+
+	private void setIntern(int address, short value) {
+		getPage(address)[address & 0x0FFF] = value;
 	}
 
 	/**

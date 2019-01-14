@@ -239,10 +239,10 @@ public class Am2904 {
 		srCache[1] = µC;
 		srCache[2] = µN;
 		srCache[3] = µOVR;
-		srCache[0] = MZ;
-		srCache[1] = MC;
-		srCache[2] = MN;
-		srCache[3] = MOVR;
+		srCache[4] = MZ;
+		srCache[5] = MC;
+		srCache[6] = MN;
+		srCache[7] = MOVR;
 		doµSROperations();
 		doMSROperations();
 		// this is much more readable and less error prone than mixing the calculations
@@ -619,6 +619,17 @@ public class Am2904 {
 
 	public final void setMOVR(int mOVR) {
 		MOVR = mOVR & 1;
+	}
+
+	public void reset() {
+		setµC(0);
+		setµN(0);
+		setµZ(0);
+		setµOVR(0);
+		setMC(0);
+		setMN(0);
+		setMZ(0);
+		setMOVR(0);
 	}
 }
 

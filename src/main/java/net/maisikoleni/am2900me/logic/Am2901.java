@@ -273,6 +273,13 @@ public class Am2901 {
 	public final void setQ(int q) {
 		Q = q;
 	}
+
+	public void reset() {
+		for (int i = 0; i < registers4bit.length; i++) {
+			setRegisters4bit(i, 0);
+		}
+		setQ(0);
+	}
 }
 
 class Am2901input {
