@@ -54,6 +54,10 @@ public class ProgramCounter {
 	public final void setPc(int pc) {
 		this.pc = pc;
 	}
+
+	public void reset() {
+		setPc(0);
+	}
 }
 
 class ProgramCounterInput {

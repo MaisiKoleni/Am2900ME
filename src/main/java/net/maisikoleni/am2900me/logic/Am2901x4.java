@@ -139,6 +139,13 @@ public class Am2901x4 {
 		nibble2.setQ((q >> 8) & 0b1111);
 		nibble3.setQ((q >> 12) & 0b1111);
 	}
+
+	public void reset() {
+		nibble0.reset();
+		nibble1.reset();
+		nibble2.reset();
+		nibble3.reset();
+	}
 }
 
 class Am2901x4input {

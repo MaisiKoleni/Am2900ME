@@ -39,6 +39,10 @@ public class InstructionRegister {
 	public final void setInstruction(int instruction) {
 		this.instruction = instruction;
 	}
+
+	public void reset() {
+		setInstruction(0);
+	}
 }
 
 class InstructionRegisterInput {

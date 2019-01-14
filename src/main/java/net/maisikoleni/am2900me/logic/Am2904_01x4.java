@@ -95,68 +95,58 @@ public class Am2904_01x4 {
 		output.CT = am2904.output.CT;
 	}
 
-	public final int getµC() {
-		return am2904.getµC();
+	public final boolean isStatusSet(String id) {
+		switch (id) {
+		case "µC":
+			return am2904.getµC() == 1;
+		case "µN":
+			return am2904.getµN() == 1;
+		case "µZ":
+			return am2904.getµZ() == 1;
+		case "µOVR":
+			return am2904.getµOVR() == 1;
+		case "MC":
+			return am2904.getMC() == 1;
+		case "MN":
+			return am2904.getMN() == 1;
+		case "MZ":
+			return am2904.getMZ() == 1;
+		case "MOVR":
+			return am2904.getMOVR() == 1;
+		default:
+			throw new IllegalArgumentException("No such status bit: " + id);
+		}
 	}
 
-	public final int getµN() {
-		return am2904.getµN();
-	}
-
-	public final int getµZ() {
-		return am2904.getµZ();
-	}
-
-	public final int getµOVR() {
-		return am2904.getµOVR();
-	}
-
-	public final int getMC() {
-		return am2904.getMC();
-	}
-
-	public final int getMN() {
-		return am2904.getMN();
-	}
-
-	public final int getMZ() {
-		return am2904.getMZ();
-	}
-
-	public final int getMOVR() {
-		return am2904.getMOVR();
-	}
-
-	public final void setµC(int μC) {
-		am2904.setµC(μC);
-	}
-
-	public final void setµN(int μN) {
-		am2904.setµN(μN);
-	}
-
-	public final void setµZ(int μZ) {
-		am2904.setµZ(μZ);
-	}
-
-	public final void setµOVR(int μOVR) {
-		am2904.setµOVR(μOVR);
-	}
-
-	public final void setMC(int mC) {
-		am2904.setMC(mC);
-	}
-
-	public final void setMN(int mN) {
-		am2904.setMN(mN);
-	}
-
-	public final void setMZ(int mZ) {
-		am2904.setMZ(mZ);
-	}
-
-	public final void setMOVR(int mOVR) {
-		am2904.setMOVR(mOVR);
+	public final void setStatus(String id, boolean value) {
+		switch (id) {
+		case "µC":
+			am2904.setµC(value ? 1 : 0);
+			break;
+		case "µN":
+			am2904.setµN(value ? 1 : 0);
+			break;
+		case "µZ":
+			am2904.setµZ(value ? 1 : 0);
+			break;
+		case "µOVR":
+			am2904.setµOVR(value ? 1 : 0);
+			break;
+		case "MC":
+			am2904.setMC(value ? 1 : 0);
+			break;
+		case "MN":
+			am2904.setMN(value ? 1 : 0);
+			break;
+		case "MZ":
+			am2904.setMZ(value ? 1 : 0);
+			break;
+		case "MOVR":
+			am2904.setMOVR(value ? 1 : 0);
+			break;
+		default:
+			throw new IllegalArgumentException("No such status bit: " + id);
+		}
 	}
 
 	public final int getRegisters4bit(int addr) {
@@ -173,6 +163,11 @@ public class Am2904_01x4 {
 
 	public final void setQ(int q) {
 		am2901x4.setQ(q);
+	}
+
+	public void reset() {
+		am2901x4.reset();
+		am2904.reset();
 	}
 }
 

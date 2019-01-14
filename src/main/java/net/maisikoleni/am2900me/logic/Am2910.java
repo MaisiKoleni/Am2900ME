@@ -207,6 +207,12 @@ public class Am2910 {
 	public final void setµPC(int μPC) {
 		µPC = μPC;
 	}
+
+	public void reset() {
+		clearStack();
+		setµPC(0);
+		setRegisterCounter(0);
+	}
 }
 
 class Am2910input {
