@@ -52,7 +52,7 @@ public class ProgramCounter {
 	}
 
 	public final void setPc(int pc) {
-		this.pc = pc;
+		this.pc = pc & 0xFFFF;
 	}
 
 	public void reset() {
