@@ -201,11 +201,27 @@ public class Am2910 {
 	}
 
 	public final void setRegisterCounter(int registerCounter) {
-		this.registerCounter = registerCounter;
+		this.registerCounter = registerCounter & 0xFFF;
 	}
 
 	public final void setµPC(int μPC) {
-		µPC = μPC;
+		µPC = μPC & 0xFFF;
+	}
+
+	public final int getStackPointer() {
+		return stackPointer;
+	}
+
+	public final void setStackPointer(int stackPointer) {
+		this.stackPointer = Math.min(5, Math.max(0, stackPointer));
+	}
+
+	public final int getStack(int pos) {
+		return stack[pos];
+	}
+
+	public final void setStack(int pos, int value) {
+		stack[pos] = value;
 	}
 
 	public void reset() {

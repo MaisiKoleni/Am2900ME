@@ -37,7 +37,7 @@ public class InstructionRegister {
 	}
 
 	public final void setInstruction(int instruction) {
-		this.instruction = instruction;
+		this.instruction = instruction & 0xFFFF;
 	}
 
 	public void reset() {
