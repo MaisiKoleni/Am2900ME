@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import net.maisikoleni.am2900me.logic.Am2900Machine;
 
 /**
  * JavaFX application entry point.
@@ -17,16 +16,16 @@ import net.maisikoleni.am2900me.logic.Am2900Machine;
  */
 public class Main extends Application {
 
-	public static final String DESCRIPTOR = "Am2900ME (v0.0.4)";
+	public static final String DESCRIPTOR = "Am2900ME (v0.1.0)";
 
-	private final Am2900Machine machine;
+	private final ObservableAm2900Machine machine;
 	private final List<String> stylesheets = List.of(
 			getClass().getResource("/style/am2900me_style.css").toExternalForm(),
 			"com/sun/javafx/scene/control/skin/modena/modena-embedded-performance.css");
 	private final List<Image> icons = getImages("/icons/µIcon16.png", "/icons/µIcon32.png", "/icons/µIcon128.png");
 
 	public Main() {
-		machine = new Am2900Machine();
+		machine = new ObservableAm2900Machine();
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class Main extends Application {
 		Scene scene = new Scene(new MappingPromPanel(machine.getmProm()));
 		scene.getStylesheets().addAll(stylesheets);
 		s.setScene(scene);
-		s.setHeight(600);
+		s.setHeight(480);
 		s.setWidth(450);
 		s.show();
 	}
@@ -60,7 +59,7 @@ public class Main extends Application {
 		Stage s = new Stage();
 		s.getIcons().addAll(icons);
 		s.setTitle(DESCRIPTOR + " - Machine RAM");
-		Scene scene = new Scene(new RAMPanel(machine.getMachineRam()));
+		Scene scene = new Scene(new RAMPanel(machine));
 		scene.getStylesheets().addAll(stylesheets);
 		s.setScene(scene);
 		s.setHeight(600);
@@ -75,8 +74,8 @@ public class Main extends Application {
 		Scene scene = new Scene(new RegisterStatusPanel(machine));
 		scene.getStylesheets().addAll(stylesheets);
 		s.setScene(scene);
-		s.setHeight(600);
-		s.setWidth(1050);
+		s.setHeight(580);
+		s.setWidth(500);
 		s.show();
 	}
 

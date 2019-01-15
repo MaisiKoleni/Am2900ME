@@ -26,7 +26,6 @@ import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import net.maisikoleni.am2900me.logic.Am2900Machine;
 import net.maisikoleni.am2900me.logic.MicroprogramMemory;
 import net.maisikoleni.am2900me.logic.microinstr.ASEL;
 import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
@@ -73,7 +72,7 @@ public class MicroInstrPanel extends BorderPane {
 
 	private final TableView<MicroInstrItem> miTable;
 	private final ObservableList<MicroInstrItem> mis;
-	private final Am2900Machine m;
+	private final ObservableAm2900Machine m;
 	private final MicroprogramMemory mpm;
 	private final IntegerProperty currentMI;
 
@@ -83,7 +82,7 @@ public class MicroInstrPanel extends BorderPane {
 	 * 
 	 * @author MaisiKoleni
 	 */
-	public MicroInstrPanel(Am2900Machine m) {
+	public MicroInstrPanel(ObservableAm2900Machine m) {
 		this.m = m;
 		this.mpm = m.getMpm();
 		this.currentMI = new SimpleIntegerProperty(-1);
@@ -163,15 +162,18 @@ public class MicroInstrPanel extends BorderPane {
 		loadFile.setOnAction(e -> IOUtil.readLines(this, this::readCSV));
 		Button saveFile = new Button("Save to File");
 		saveFile.setOnAction(e -> IOUtil.writeLines(this, this::toCSV));
-		ToolBar tb = new ToolBar(execNext, execNextN, loadFile, saveFile);
+		Button reset = new Button("Reset Machine State");
+		reset.setOnAction(e -> {
+			m.reset();
+			currentMI.set(-1);
+		});
+		ToolBar tb = new ToolBar(execNext, execNextN, loadFile, saveFile, reset);
 		setTop(tb);
 	}
 
 	private void executeNextN(int n) {
 		try {
-			for (int i = 0; i < n; i++) {
-				m.executeNext();
-			}
+			m.executeNextN(n);
 		} catch (Exception ex) {
 			Alert a = new Alert(AlertType.ERROR, "An error occured during execution:\n" + ex, ButtonType.CLOSE);
 			a.show();

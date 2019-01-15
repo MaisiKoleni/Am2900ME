@@ -1,19 +1,25 @@
 package net.maisikoleni.am2900me.ui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javafx.beans.binding.IntegerExpression;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -22,8 +28,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import net.maisikoleni.am2900me.logic.MachineRAM;
 import net.maisikoleni.am2900me.logic.MappingPROM;
+import net.maisikoleni.am2900me.util.AdvBindings;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
 import net.maisikoleni.am2900me.util.IOUtil;
+import net.maisikoleni.am2900me.util.StyleClassProperty;
 
 /**
  * Panel for viewing and modifying the {@link MachineRAM}. (live)
@@ -39,6 +47,10 @@ public class RAMPanel extends BorderPane {
 	private final ObservableList<RAM16CellRow> entries;
 	private IntegerProperty page;
 	private final MachineRAM ram;
+	private final ObservableAm2900Machine m;
+	private boolean markChanges;
+	private BooleanProperty autoUpdate;
+	private ObservableSet<Integer> changed;
 
 	/**
 	 * Creates a new Mapping PROM Panel connected to the given {@link MappingPROM},
@@ -47,9 +59,11 @@ public class RAMPanel extends BorderPane {
 	 * 
 	 * @author MaisiKoleni
 	 */
-	public RAMPanel(MachineRAM ram) {
-		this.ram = ram;
+	public RAMPanel(ObservableAm2900Machine machine) {
+		this.m = machine;
+		this.ram = machine.getMachineRam();
 		entries = FXCollections.observableArrayList();
+		changed = FXCollections.observableSet(new HashSet<>());
 		currentPage = new TableView<>(entries);
 		allocPage = new Button("Allocate the page to edit it");
 		pageNotUsed = new VBox(new Label("RAM page currently not used"), allocPage);
@@ -57,7 +71,12 @@ public class RAMPanel extends BorderPane {
 		pageNotUsed.setStyle("-fx-alignment:CENTER;");
 		configureToolBar();
 		configureTableView();
-		updatePage(false);
+		updatePage(false, false);
+		m.addListener(obs -> {
+			changed.clear();
+			if (autoUpdate.get())
+				updatePage(false, true);
+		});
 		setCenter(new StackPane(currentPage, pageNotUsed));
 	}
 
@@ -68,12 +87,16 @@ public class RAMPanel extends BorderPane {
 		pageChooser.setValue(0);
 		page = IntegerProperty.integerProperty(pageChooser.valueProperty());
 		Button update = new Button("Update page values");
-		update.setOnAction(e -> updatePage(false));
+		update.setOnAction(e -> updatePage(false, true));
 		Button loadFile = new Button("Load from File");
 		loadFile.setOnAction(e -> IOUtil.readLines(this, this::readCSV));
 		Button saveFile = new Button("Save to File");
 		saveFile.setOnAction(e -> IOUtil.writeLines(this, this::toCSV));
-		actions = new ToolBar(pageLabel, pageChooser, update, loadFile, saveFile);
+		ToggleButton autoUpButton = new ToggleButton("Auto Update");
+		autoUpdate = autoUpButton.selectedProperty();
+		update.disableProperty().bind(autoUpdate);
+		autoUpButton.setSelected(true);
+		actions = new ToolBar(pageLabel, pageChooser, update, autoUpButton, loadFile, saveFile);
 		setupListeners();
 		setTop(actions);
 	}
@@ -88,9 +111,18 @@ public class RAMPanel extends BorderPane {
 		currentPage.getColumns().add(start);
 
 		for (int i = 0; i < 16; i++) {
-			String hex = String.format("0x%X", i);
+			final int pos = i;
+			String hex = HexIntStringConverter.INT_4.toString(pos);
 			TableColumn<RAM16CellRow, Integer> col = new TableColumn<>(hex);
-			col.setCellFactory(TextFieldTableCell.forTableColumn(HexIntStringConverter.INT_16));
+			col.setCellFactory(list -> {
+				TextFieldTableCell<RAM16CellRow, Integer> cell = new TextFieldTableCell<>(HexIntStringConverter.INT_16);
+				ObjectBinding<Number> offset = AdvBindings.map(
+						AdvBindings.map(cell.tableRowProperty(), r -> r == null ? null : r.itemProperty()),
+						ramrow -> ramrow == null ? null : ramrow.offsetProperty());
+				new StyleClassProperty(cell.getStyleClass(), "changed-cell")
+						.bind(AdvBindings.contains(changed, IntegerExpression.integerExpression(offset).add(pos)));
+				return cell;
+			});
 			col.setCellValueFactory(new PropertyValueFactory<>("column" + hex));
 			col.setReorderable(false);
 			col.setEditable(true);
@@ -108,13 +140,16 @@ public class RAMPanel extends BorderPane {
 
 	private void setupListeners() {
 		allocPage.setOnAction((e) -> {
-			updatePage(true);
+			updatePage(true, false);
 		});
-		page.addListener((obs, o, n) -> updatePage(false));
+		page.addListener((obs, o, n) -> {
+			updatePage(false, false);
+		});
 	}
 
-	private void updatePage(boolean doAlloc) {
+	private void updatePage(boolean doAlloc, boolean markChanges) {
 		int p = page.get();
+		this.markChanges = markChanges;
 		boolean inUse = ram.isPageInUse(p);
 		if (!inUse && doAlloc) {
 			ram.allocatePage(p);
@@ -155,7 +190,7 @@ public class RAMPanel extends BorderPane {
 				ram.set(offset + i, Integer.decode(parts[i + 1]));
 			}
 		}
-		updatePage(false);
+		updatePage(false, true);
 	}
 
 	private int getValue(int inPageAddress) {
@@ -177,11 +212,14 @@ public class RAMPanel extends BorderPane {
 			this.inPageOffset = offset;
 			this.offset = new SimpleIntegerProperty(offset);
 			for (int i = 0; i < columns.length; i++) {
+				final int finalI = i;
 				final int addr = inPageOffset + i;
 				columns[i] = new SimpleIntegerProperty();
 				columns[i].addListener((obs, o, n) -> {
 					if (isUserChange)
 						setValue(addr, n.intValue());
+					if (isUserChange || markChanges)
+						changed.add(this.offset.get() + finalI);
 				});
 			}
 		}
