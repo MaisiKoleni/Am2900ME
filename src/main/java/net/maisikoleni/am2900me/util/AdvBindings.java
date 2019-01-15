@@ -5,10 +5,12 @@ import java.util.function.Function;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 /**
  * Some extensions of {@link Bindings}
@@ -82,6 +84,54 @@ public class AdvBindings {
 			@Override
 			public ObservableList<?> getDependencies() {
 				return FXCollections.unmodifiableObservableList(depend);
+			}
+		};
+	}
+
+	public static BooleanBinding contains(ObservableList<?> list, ObservableValue<?> value) {
+		return new BooleanBinding() {
+
+			{
+				bind(list, value);
+			}
+
+			@Override
+			protected boolean computeValue() {
+				return list.contains(value.getValue());
+			}
+
+			@Override
+			public void dispose() {
+				super.unbind(list, value);
+			}
+
+			@Override
+			public ObservableList<?> getDependencies() {
+				return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(list, value));
+			}
+		};
+	}
+
+	public static BooleanBinding contains(ObservableSet<?> set, ObservableValue<?> value) {
+		return new BooleanBinding() {
+
+			{
+				bind(set, value);
+			}
+
+			@Override
+			protected boolean computeValue() {
+				return set.contains(value.getValue());
+			}
+
+			@Override
+			public void dispose() {
+				super.unbind(set, value);
+			}
+
+			@Override
+			public ObservableList<?> getDependencies() {
+				return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(set, value));
 			}
 		};
 	}
