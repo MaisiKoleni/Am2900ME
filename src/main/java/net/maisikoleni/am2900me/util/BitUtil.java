@@ -7,13 +7,17 @@ package net.maisikoleni.am2900me.util;
  *
  */
 public class BitUtil {
+
+	private BitUtil() {
+	}
+
 	/**
 	 * Represents the OFF / high impedance state of a circuit connected to a
 	 * tri-state bus.
 	 * 
 	 * @author MaisiKoleni
 	 */
-	public static final int TRI_STATE_OFF = -1; // TODO: tristate class/enum/interface ?
+	public static final int TRI_STATE_OFF = -1;
 
 	/**
 	 * The bit of operations returning undefined results

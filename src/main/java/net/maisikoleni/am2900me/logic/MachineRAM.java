@@ -29,13 +29,11 @@ public class MachineRAM {
 	 */
 	public void outputData() {
 		output.data = BitUtil.TRI_STATE_OFF;
-		if (lastAddr != BitUtil.TRI_STATE_OFF) {
-			if (last_MWE == _MWE.R) {
-				if (input.data == BitUtil.TRI_STATE_OFF)
-					output.data = getPage(lastAddr)[lastAddr & 0x0FFF] & 0xFFFF;
-				else
-					throw new IllegalStateException("cannot write data on data bus, already in use");
-			}
+		if (lastAddr != BitUtil.TRI_STATE_OFF && last_MWE == _MWE.R) {
+			if (input.data == BitUtil.TRI_STATE_OFF)
+				output.data = getPage(lastAddr)[lastAddr & 0x0FFF] & 0xFFFF;
+			else
+				throw new IllegalStateException("cannot write data on data bus, already in use");
 		}
 	}
 
@@ -45,13 +43,11 @@ public class MachineRAM {
 	 * @author MaisiKoleni
 	 */
 	public void saveData() {
-		if (lastAddr != BitUtil.TRI_STATE_OFF) {
-			if (last_MWE == _MWE.W) {
-				if (input.data != BitUtil.TRI_STATE_OFF)
-					setIntern(lastAddr, (short) input.data);
-				else
-					throw new IllegalStateException("cannot write data from data bus to memory, no data signals");
-			}
+		if (lastAddr != BitUtil.TRI_STATE_OFF && last_MWE == _MWE.W) {
+			if (input.data != BitUtil.TRI_STATE_OFF)
+				setIntern(lastAddr, (short) input.data);
+			else
+				throw new IllegalStateException("cannot write data from data bus to memory, no data signals");
 		}
 		last_MWE = input._MWE;
 		lastAddr = input.addr;
@@ -59,12 +55,7 @@ public class MachineRAM {
 
 	private short[] getPage(int addr) {
 		int pageAddr = addr >>> 12;
-		short[] page = pages.get(pageAddr);
-		if (page == null) {
-			page = new short[4096];
-			pages.put(pageAddr, page);
-		}
-		return page;
+		return pages.computeIfAbsent(pageAddr, x -> new short[4096]);
 	}
 
 	/**
