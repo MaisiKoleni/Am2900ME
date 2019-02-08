@@ -481,7 +481,7 @@ public class Am2904 {
 			output.QIO3 = input.SIO0;
 			break;
 		case 0b0_1111:
-			output.SIO3 = input.IN ^ input.IOVR;
+			output.SIO3 = input.QIO0;
 			output.QIO3 = input.SIO0;
 			break;
 		case 0b1_0000:
