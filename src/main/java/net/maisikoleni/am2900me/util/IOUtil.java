@@ -16,6 +16,10 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 
 public class IOUtil {
+
+	private IOUtil() {
+	}
+
 	public static final Preferences PREFERENCES = Preferences.userRoot().node("am2900me");
 
 	public static boolean readLines(Node alertOwner, Consumer<List<String>> onSuccess) {

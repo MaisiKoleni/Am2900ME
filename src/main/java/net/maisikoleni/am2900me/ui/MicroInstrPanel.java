@@ -195,7 +195,7 @@ public class MicroInstrPanel extends BorderPane {
 		return column;
 	}
 
-	static <T extends Enum<T>> TableColumn<MicroInstrItem, ?> generateColumnFor(T defaultVal) {
+	static <T extends Enum<T>> TableColumn<MicroInstrItem, T> generateColumnFor(T defaultVal) {
 		TableColumn<MicroInstrItem, T> column = new TableColumn<>(defaultVal.getClass().getSimpleName());
 		T[] values = defaultVal.getDeclaringClass().getEnumConstants();
 		column.setCellFactory(list -> {

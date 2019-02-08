@@ -54,12 +54,10 @@ public class ManualObservable implements Observable, InvalidationListener {
 	}
 
 	public static Observable combine(Observable... observables) {
-		return new ManualObservable() {
-			{
-				for (Observable observable : observables) {
-					observable.addListener(this);
-				}
-			}
-		};
+		ManualObservable mo = new ManualObservable();
+		for (Observable observable : observables) {
+			observable.addListener(mo);
+		}
+		return mo;
 	}
 }

@@ -15,7 +15,7 @@ public enum Am2901_Dest implements µIField {
 	}
 
 	public int getShiftDir() {
-		return doesShift() ? ordinal() < 6 ? -1 : 1 : 0;
+		return doesShift() ? (ordinal() < 6 ? -1 : 1) : 0;
 	}
 
 	public int getI7() {
