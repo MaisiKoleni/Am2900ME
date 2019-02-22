@@ -146,9 +146,9 @@ public class Am2901 {
 		case ADD:
 			return add(R, S);
 		case SUBR:
-			return sub(S, R);
+			return add(S, ~R);
 		case SUBS:
-			return sub(R, S);
+			return add(R, ~S);
 		case OR:
 			return or(R, S);
 		case AND:
@@ -168,6 +168,7 @@ public class Am2901 {
 	// Book, page 2-3, 2-6
 
 	private int add(int R, int S) {
+		// subtraction is R + ~S + input.Cn, which is the same as A - B - (1 - input.Cn)
 		int f = R + S + input.Cn;
 		int C3 = C3(R, S, input.Cn);
 		int C4 = C4(R, S, input.Cn);
@@ -177,19 +178,6 @@ public class Am2901 {
 		output.F3 = F3(f);
 		output._G = 1 - BitUtil.or(C4 & 0b1_1110);
 		output._P = 1 - (R | S) / 0b1111;
-		return (f & 0b1111);
-	}
-
-	private int sub(int A, int B) {
-		int f = A - B - (1 - input.Cn);
-		int C3 = C3(A, ~B, input.Cn);
-		int C4 = C4(A, ~B, input.Cn);
-		output.Cn4 = C4;
-		output.OVR = C3 ^ C4;
-		output.F0 = F0(f);
-		output.F3 = F3(f);
-		output._G = 1 - BitUtil.or(C4 & 0b1_1110);
-		output._P = 1 - (A | ~B) / 0b1111;
 		return (f & 0b1111);
 	}
 

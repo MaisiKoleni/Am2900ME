@@ -230,7 +230,7 @@ public class Am2901Test {
 	public void sub() throws ReflectiveOperationException {
 		Am2901 a = new Am2901();
 		a.input.Cn = 1;
-		Method sub = Am2901.class.getDeclaredMethod("sub", Integer.TYPE, Integer.TYPE);
+		Method sub = Am2901.class.getDeclaredMethod("add", Integer.TYPE, Integer.TYPE);
 		sub.setAccessible(true);
 		for (int rInt = -8; rInt <= 7; rInt++) {
 			for (int sInt = -8; sInt <= 7; sInt++) {
@@ -238,12 +238,13 @@ public class Am2901Test {
 				int s = sInt & 0b1111;
 				int javaRes = BitUtil.signed4ToSigned32(r) - BitUtil.signed4ToSigned32(s);
 				int rs4bits = BitUtil.signed4ToSigned32(javaRes);
-				int res = (Integer) sub.invoke(a, r, s);
+				int res = (Integer) sub.invoke(a, r, ~s);
 				assertEquals(res, javaRes & 0b1111, "sub");
 				assertEquals(a.output.F0 == 1, rs4bits == 0, "Zero");
 				assertEquals(a.output.F3 == 1, (javaRes & 0b1000) > 0, "Sign");
 				assertEquals(a.output.OVR == 1, rs4bits != javaRes, "Over");
-//				assertEquals(a.output.Cn4 == 1, ((r + s) & 0b11_0000) != 0, "Carry"); // TODO
+//				System.out.println(rInt + " " + sInt + ": " + a.output.Cn4);
+				assertEquals(a.output.Cn4 == 1, r >= s, "Carry");
 			}
 		}
 	}
