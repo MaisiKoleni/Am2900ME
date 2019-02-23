@@ -16,6 +16,7 @@ public class Am2910 {
 
 	private int stackPointer;
 	private int registerCounter;
+	private int incrementerSignal;
 	private int µPC;
 
 	final Am2910input input = new Am2910input();
@@ -27,6 +28,7 @@ public class Am2910 {
 	 * @author MaisiKoleni
 	 */
 	public void processStep1() {
+		µPC = incrementerSignal;
 		switch (input.mi_inst) {
 		case JZ:
 		case CJS:
@@ -74,7 +76,7 @@ public class Am2910 {
 		// output is set low the cycle AFTER the stack got filled
 		output._FULL = 1 - stackPointer / 5;
 		int Y = emulateInstPLA(input.mi_inst, passed == 1, registerCounter == 0);
-		µPC = Y + input.CI;
+		incrementerSignal = Y + input.CI;
 		output.Y = Y;
 	}
 
@@ -205,7 +207,8 @@ public class Am2910 {
 	}
 
 	public final void setµPC(int μPC) {
-		µPC = μPC & 0xFFF;
+		this.incrementerSignal = μPC & 0xFFF;
+		this.µPC = μPC & 0xFFF;
 	}
 
 	public final int getStackPointer() {
