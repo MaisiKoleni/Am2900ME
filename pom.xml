@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.maisikoleni.am2900me</groupId>
 	<artifactId>Am2900ME</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>Am2900ME</name>
 	<description>Emulator for Am2900 Family Microprogramming</description>
 	<url>https://github.com/MaisiKoleni/Am2900ME</url>
@@ -19,7 +19,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<release>10</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -68,6 +68,30 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.zenjava</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>8.8.3</version>
+				<configuration>
+					<vendor>MaisiKoleni</vendor>
+					<mainClass>net.maisikoleni.am2900me.ui.Main</mainClass>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>net.maisikoleni.am2900me.ui.Main</mainClass>
+				</configuration>
+			</plugin>-->
 		</plugins>
 	</build>
 
@@ -78,6 +102,10 @@
 			<version>6.14.3</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>11.0.2</version>
+		</dependency>
 	</dependencies>
-
 </project>
