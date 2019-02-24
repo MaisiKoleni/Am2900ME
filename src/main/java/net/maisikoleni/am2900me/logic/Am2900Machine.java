@@ -178,6 +178,7 @@ public class Am2900Machine {
 		mi = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JZ);
 		pc.reset();
 		ir.reset();
+		machineRam.reset();
 		am2904_01x4.reset();
 		am2910.reset();
 	}
