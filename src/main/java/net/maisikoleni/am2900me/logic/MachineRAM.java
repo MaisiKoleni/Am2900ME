@@ -118,6 +118,11 @@ public class MachineRAM {
 	public void allocatePage(int page) {
 		getPage(page * cellCount());
 	}
+
+	public void reset() {
+		lastAddr = BitUtil.TRI_STATE_OFF;
+		last_MWE = _MWE.R;
+	}
 }
 
 class MainMachineRAMinput {
