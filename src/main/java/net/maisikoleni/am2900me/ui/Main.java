@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-	public static final String DESCRIPTOR = "Am2900ME (v0.1.0)";
+	public static final String DESCRIPTOR = "Am2900ME (v0.1.1)";
 
 	private final ObservableAm2900Machine machine;
 	private final List<String> stylesheets = List.of(
