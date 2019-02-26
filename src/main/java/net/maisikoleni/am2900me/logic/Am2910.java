@@ -206,9 +206,9 @@ public class Am2910 {
 		this.registerCounter = registerCounter & 0xFFF;
 	}
 
-	public final void setµPC(int μPC) {
-		this.incrementerSignal = μPC & 0xFFF;
-		this.µPC = μPC & 0xFFF;
+	public final void setµPC(int µPC) {
+		this.incrementerSignal = µPC & 0xFFF;
+		this.µPC = µPC & 0xFFF;
 	}
 
 	public final int getStackPointer() {

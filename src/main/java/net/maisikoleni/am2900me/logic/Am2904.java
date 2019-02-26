@@ -589,20 +589,20 @@ public class Am2904 {
 		return MOVR;
 	}
 
-	public final void setµC(int μC) {
-		µC = μC & 1;
+	public final void setµC(int µC) {
+		this.µC = µC & 1;
 	}
 
-	public final void setµN(int μN) {
-		µN = μN & 1;
+	public final void setµN(int µN) {
+		this.µN = µN & 1;
 	}
 
-	public final void setµZ(int μZ) {
-		µZ = μZ & 1;
+	public final void setµZ(int µZ) {
+		this.µZ = µZ & 1;
 	}
 
-	public final void setµOVR(int μOVR) {
-		µOVR = μOVR & 1;
+	public final void setµOVR(int µOVR) {
+		this.µOVR = µOVR & 1;
 	}
 
 	public final void setMC(int mC) {
