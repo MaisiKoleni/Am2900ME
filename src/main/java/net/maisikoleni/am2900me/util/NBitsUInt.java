@@ -1,6 +1,6 @@
 package net.maisikoleni.am2900me.util;
 
-abstract public class NBitsUInt {
+public abstract class NBitsUInt {
 	public final int value;
 	public final int bits;
 
