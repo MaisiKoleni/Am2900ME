@@ -9,4 +9,4 @@ The most important circuits like e.g. the Am2901, Am2904 and Am2910 are separate
 See the [Wiki](../../wiki/A-short-introduction-to-the-Am2900ME) for more detailed information.
 
 #### [SWT-Version of the Am2900ME (smaller, works with Java 1.8+)](https://github.com/Haspamelodica/Am2900ME_swt)
-*Note that both Versions are currently not 100% compatible!*
+*Note that there might be small differences, but both should be compatible now.*
