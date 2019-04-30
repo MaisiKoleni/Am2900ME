@@ -10,8 +10,8 @@ module am2900me {
 	exports net.maisikoleni.am2900me.logic.microinstr;
 	exports net.maisikoleni.am2900me.util;
 
-	requires java.prefs;
-	requires javafx.base;
-	requires javafx.controls;
-	requires javafx.graphics;
+	requires transitive java.prefs;
+	requires transitive javafx.base;
+	requires transitive javafx.controls;
+	requires transitive javafx.graphics;
 }

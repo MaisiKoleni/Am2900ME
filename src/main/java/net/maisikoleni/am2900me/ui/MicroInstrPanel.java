@@ -3,6 +3,7 @@ package net.maisikoleni.am2900me.ui;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,6 +59,7 @@ import net.maisikoleni.am2900me.logic.microinstr._IR_LD;
 import net.maisikoleni.am2900me.logic.microinstr._MWE;
 import net.maisikoleni.am2900me.logic.microinstr.µIField;
 import net.maisikoleni.am2900me.util.AdvBindings;
+import net.maisikoleni.am2900me.util.AdvBindings.BooleanOperation;
 import net.maisikoleni.am2900me.util.HexIntStringConverter;
 import net.maisikoleni.am2900me.util.IOUtil;
 import net.maisikoleni.am2900me.util.NBitsUInt;
@@ -70,11 +73,14 @@ import net.maisikoleni.am2900me.util.UniversalHexIntStringConverter;
  */
 public class MicroInstrPanel extends BorderPane {
 
+	private static final int NONE = -2;
+
 	private final TableView<MicroInstrItem> miTable;
 	private final ObservableList<MicroInstrItem> mis;
 	private final ObservableAm2900Machine m;
 	private final MicroprogramMemory mpm;
 	private final IntegerProperty currentMI;
+	private BooleanBinding executedVisible;
 
 	/**
 	 * Creates a new microprogram memory for programming the microinstructions in
@@ -85,7 +91,7 @@ public class MicroInstrPanel extends BorderPane {
 	public MicroInstrPanel(ObservableAm2900Machine m) {
 		this.m = m;
 		this.mpm = m.getMpm();
-		this.currentMI = new SimpleIntegerProperty(-1);
+		this.currentMI = new SimpleIntegerProperty(NONE);
 		this.miTable = new TableView<>();
 		configureTableView();
 		mis = FXCollections.observableArrayList();
@@ -101,6 +107,7 @@ public class MicroInstrPanel extends BorderPane {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void configureTableView() {
+		ObservableList<BooleanBinding> executedRows = AdvBindings.observableChangeArrayList();
 		miTable.setRowFactory(tv -> {
 			StyledTableRow<MicroInstrItem> row = new StyledTableRow<>();
 			BooleanBinding isDefault = AdvBindings.map(row.itemProperty(), mii -> mii == null ? null : mii.mi)
@@ -108,8 +115,13 @@ public class MicroInstrPanel extends BorderPane {
 			row.styleClassPropertyFor("default-mi").bind(isDefault);
 			BooleanBinding executed = row.indexProperty().isEqualTo(currentMI);
 			row.styleClassPropertyFor("executed-mi").bind(executed);
+			executedRows.add(executed);
 			return row;
 		});
+		executedRows.addListener((Observable s) -> System.out.println(s));
+		executedVisible = AdvBindings.reduce(executedRows, false, BooleanBinding::get, BooleanOperation.OR);
+		executedVisible.addListener(System.out::println);
+
 		TableColumn<MicroInstrItem, Integer> addrCol = new TableColumn<>("Address");
 		addrCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 		addrCol.setCellFactory(TextFieldTableCell.forTableColumn(HexIntStringConverter.INT_12));
@@ -136,10 +148,10 @@ public class MicroInstrPanel extends BorderPane {
 	private void configureToolbar() {
 		Button execNext = new Button();
 		execNext.textProperty()
-				.bind(Bindings.when(currentMI.isEqualTo(-1)).then("Startup Machine").otherwise("Execute Next"));
+				.bind(Bindings.when(currentMI.isEqualTo(NONE)).then("Startup Machine").otherwise("Execute Next"));
 		execNext.setOnAction(e -> executeNextN(1));
 		Button execNextN = new Button();
-		execNextN.textProperty().bind(Bindings.when(currentMI.isEqualTo(-1)).then("Execute Next N (inkl. Startup)")
+		execNextN.textProperty().bind(Bindings.when(currentMI.isEqualTo(NONE)).then("Execute Next N (inkl. Startup)")
 				.otherwise("Execute Next N"));
 		execNextN.setOnAction(e -> {
 			TextInputDialog t = new TextInputDialog("20");
@@ -165,9 +177,13 @@ public class MicroInstrPanel extends BorderPane {
 		Button reset = new Button("Reset Machine State");
 		reset.setOnAction(e -> {
 			m.reset();
-			currentMI.set(-1);
+			currentMI.set(NONE);
 		});
-		ToolBar tb = new ToolBar(execNext, execNextN, loadFile, saveFile, reset);
+		ToggleButton jmpToCurrentButton = new ToggleButton("Autojump to Current MI");
+		jmpToCurrentButton.setSelected(true);
+		executedVisible.not().and(jmpToCurrentButton.selectedProperty())
+				.addListener((obs, o, n) -> miTable.scrollTo(Math.max(0, currentMI.get() - 3)));
+		ToolBar tb = new ToolBar(execNext, execNextN, loadFile, saveFile, reset, jmpToCurrentButton);
 		setTop(tb);
 	}
 

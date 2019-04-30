@@ -1,9 +1,14 @@
 package net.maisikoleni.am2900me.util;
 
+import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javafx.beans.Observable;
+import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.ObjectBinding;
@@ -17,7 +22,7 @@ import javafx.collections.ObservableSet;
  *
  * @author MaisiKoleni
  */
-public class AdvBindings {
+public final class AdvBindings {
 
 	private AdvBindings() {
 		// utility class only
@@ -134,5 +139,123 @@ public class AdvBindings {
 				return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(set, value));
 			}
 		};
+	}
+
+	public static <E extends Observable> ObservableList<E> observableChangeArrayList() {
+		return FXCollections.observableArrayList(e -> new Observable[] { e });
+	}
+
+	public static <E extends Observable> ObservableList<E> observableChangeListOf(List<E> list) {
+		return FXCollections.observableList(list, e -> new Observable[] { e });
+	}
+
+	public static <E, T> Binding<T> reduce(ObservableList<E> list, T indentity, BiFunction<T, E, T> reduce) {
+		return new ObjectBinding<>() {
+
+			{
+				bind(list);
+			}
+
+			@Override
+			protected T computeValue() {
+				T res = indentity;
+				for (E e : list) {
+					res = reduce.apply(res, e);
+				}
+				return res;
+			}
+
+			@Override
+			public void dispose() {
+				super.unbind(list);
+			}
+
+			@Override
+			public ObservableList<?> getDependencies() {
+				return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(list));
+			}
+		};
+	}
+
+	public static <E> BooleanBinding reduce(ObservableList<E> list, boolean indentity, Predicate<E> test,
+			BooleanBinaryOperator combiner) {
+		return new BooleanBinding() {
+
+			{
+				bind(list);
+			}
+
+			@Override
+			protected boolean computeValue() {
+				boolean res = indentity;
+				for (E e : list) {
+					res = combiner.apply(res, test.test(e));
+				}
+				return res;
+			}
+
+			@Override
+			public void dispose() {
+				super.unbind(list);
+			}
+
+			@Override
+			public ObservableList<?> getDependencies() {
+				return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(list));
+			}
+		};
+	}
+
+	public enum BooleanOperation implements BooleanBinaryOperator {
+		AND {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return a && b;
+			}
+		},
+		NAND {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return !(a && b);
+			}
+		},
+		OR {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return a || b;
+			}
+		},
+		NOR {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return !(a || b);
+			}
+		},
+		XOR {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return a ^ b;
+			}
+		},
+		XNOR {
+			@Override
+			public boolean apply(boolean a, boolean b) {
+				return !(a ^ b);
+			}
+		};
+	}
+
+	@FunctionalInterface
+	public static interface BooleanBinaryOperator extends BinaryOperator<Boolean> {
+		abstract boolean apply(boolean a, boolean b);
+
+		@Override
+		default Boolean apply(Boolean t, Boolean u) {
+			return apply(t.booleanValue(), u.booleanValue());
+		}
+
+		default BooleanBinaryOperator not() {
+			return (a, b) -> !apply(a, b);
+		}
 	}
 }
