@@ -22,4 +22,17 @@ public enum Am2910_Inst implements µIField {
 	public String getFullName() {
 		return "Fortschaltebefehle des Am2910";
 	}
+
+	@Override
+	public boolean isNotRelevantForTum() {
+		switch (this) {
+		case JZ:
+		case JMAP:
+		case CJP:
+		case CONT:
+			return false;
+		default:
+			return true;
+		}
+	}
 }

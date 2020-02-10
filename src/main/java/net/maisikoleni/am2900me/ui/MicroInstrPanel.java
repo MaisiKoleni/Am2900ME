@@ -28,6 +28,7 @@ import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.util.StringConverter;
 import net.maisikoleni.am2900me.logic.MicroprogramMemory;
 import net.maisikoleni.am2900me.logic.microinstr.ASEL;
 import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
@@ -85,7 +86,7 @@ public class MicroInstrPanel extends BorderPane {
 	/**
 	 * Creates a new microprogram memory for programming the microinstructions in
 	 * the machine using the given {@link MicroprogramMemory}.
-	 * 
+	 *
 	 * @author Christian Femers
 	 */
 	public MicroInstrPanel(ObservableAm2900Machine m) {
@@ -133,7 +134,7 @@ public class MicroInstrPanel extends BorderPane {
 			µIField f = MicroInstruction.FIELD_DEFAULTS.get(i);
 			TableColumn<MicroInstrItem, ?> col;
 			if (f instanceof Enum<?>)
-				col = generateColumnFor((Enum) f); // more elegant enum handling?
+				col = generateColumnFor((Enum & µIField) f); // more elegant enum handling?
 			else
 				col = generateColumnFor((NBitsUInt) f);
 			col.setCellValueFactory(new PropertyValueFactory<>(MicroInstruction.FIELD_NAMES.get(i)));
@@ -211,11 +212,25 @@ public class MicroInstrPanel extends BorderPane {
 		return column;
 	}
 
-	static <T extends Enum<T>> TableColumn<MicroInstrItem, T> generateColumnFor(T defaultVal) {
+	static <T extends Enum<T> & µIField> TableColumn<MicroInstrItem, T> generateColumnFor(T defaultVal) {
 		TableColumn<MicroInstrItem, T> column = new TableColumn<>(defaultVal.getClass().getSimpleName());
 		T[] values = defaultVal.getDeclaringClass().getEnumConstants();
 		column.setCellFactory(list -> {
-			TableCell<MicroInstrItem, T> cell = new ChoiceBoxTableCell<>(values);
+			TableCell<MicroInstrItem, T> cell = new ChoiceBoxTableCell<>(new StringConverter<T>() {
+				@Override
+				public String toString(T object) {
+					if (object == null)
+						return null;
+					if (object.isNotRelevantForTum())
+						return "(" + object + ")";
+					return " " + object.toString();
+				}
+
+				@Override
+				public T fromString(String string) {
+					return null; // not required
+				}
+			}, values);
 			new StyleClassProperty(cell.getStyleClass(), "changed-mi")
 					.bind(cell.itemProperty().isNotEqualTo(defaultVal));
 			return cell;

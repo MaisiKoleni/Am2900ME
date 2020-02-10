@@ -119,4 +119,26 @@ public enum Am2904_Inst implements µIField {
 	public String getFullName() {
 		return "Am2904 Instructions";
 	}
+
+	@Override
+	public boolean isNotRelevantForTum() {
+		switch (this) {
+		case Load_Load_µ_Z:
+		case Load_Load_µ_notZ:
+		case Load_Load_µ_C:
+		case Load_Load_µ_notC:
+		case Load_Load_µ_CandnotZ:
+		case Load_Load_µ_notCorZ:
+			return false;
+		case Load_Load_M_Z:
+		case Load_Load_M_notZ:
+		case Load_Load_M_C:
+		case Load_Load_M_notC:
+		case Load_Load_M_CandnotZ:
+		case Load_Load_M_notCorZ:
+			return false;
+		default:
+			return true;
+		}
+	}
 }

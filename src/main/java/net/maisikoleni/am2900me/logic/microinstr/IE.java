@@ -8,4 +8,9 @@ public enum IE implements µIField {
 	public String getFullName() {
 		return "Interrupt Enable";
 	}
+
+	@Override
+	public boolean isNotRelevantForTum() {
+		return this == IE;
+	}
 }

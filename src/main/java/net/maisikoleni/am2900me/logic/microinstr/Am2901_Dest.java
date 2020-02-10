@@ -26,4 +26,17 @@ public enum Am2901_Dest implements µIField {
 	public String getFullName() {
 		return "ALU Zielsteuerung";
 	}
+
+	@Override
+	public boolean isNotRelevantForTum() {
+		switch (this) {
+		case RAMQD:
+		case RAMD:
+		case RAMQU:
+		case RAMU:
+			return true;
+		default:
+			return false;
+		}
+	}
 }

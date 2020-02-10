@@ -10,4 +10,15 @@ public enum Am2904_Carry implements µIField {
 	public String getFullName() {
 		return "Instruktionsbit des Am2904 - Übertragssteuerung";
 	}
+
+	@Override
+	public boolean isNotRelevantForTum() {
+		switch (this) {
+		case CX:
+		case USE_SR:
+			return true;
+		default:
+			return false;
+		}
+	}
 }
