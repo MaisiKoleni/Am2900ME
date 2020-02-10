@@ -1,10 +1,10 @@
 package net.maisikoleni.am2900me.logic;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Method;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import net.maisikoleni.am2900me.logic.microinstr.Am2901_Dest;
 import net.maisikoleni.am2900me.logic.microinstr.Am2901_Func;
@@ -115,7 +115,7 @@ public class Am2901Test {
 			switch (src.name().charAt(0)) {
 			case 'A':
 				a.input.regA_addr = 16;
-				assertThrows(() -> getR.invoke(a, src));
+				assertThrows(IllegalStateException.class, () -> getR.invoke(a, src));
 				a.input.regA_addr = 0;
 				assertEquals((int) (Integer) getR.invoke(a, src), 0, "Src: " + src);
 				a.input.regA_addr = 16;
@@ -152,14 +152,14 @@ public class Am2901Test {
 			switch (src.name().charAt(1)) {
 			case 'A':
 				a.input.regA_addr = 16;
-				assertThrows(() -> getS.invoke(a, src));
+				assertThrows(IllegalStateException.class, () -> getS.invoke(a, src));
 				a.input.regA_addr = 0;
 				assertEquals((int) (Integer) getS.invoke(a, src), 0, "Src: " + src);
 				a.input.regA_addr = 16;
 				break;
 			case 'B':
 				a.input.regB_addr = 16;
-				assertThrows(() -> getS.invoke(a, src));
+				assertThrows(IllegalStateException.class, () -> getS.invoke(a, src));
 				a.input.regB_addr = 0;
 				assertEquals((int) (Integer) getS.invoke(a, src), 0, "Src: " + src);
 				a.input.regB_addr = 16;

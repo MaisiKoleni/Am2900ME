@@ -1,8 +1,9 @@
 package net.maisikoleni.am2900me.logic;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import net.maisikoleni.am2900me.logic.microinstr.Am2910_Inst;
 import net.maisikoleni.am2900me.logic.microinstr.MicroInstruction;
@@ -13,7 +14,8 @@ import net.maisikoleni.am2900me.logic.microinstr._IR_LD;
 @SuppressWarnings({ "static-method" })
 public class Am2900MachineTest {
 
-	@Test(priority = 1)
+	@Test
+	@Order(1)
 	public void testNop() {
 		Am2900Machine m = new Am2900Machine();
 		MicroInstruction mi = MicroInstruction.DEFAULT;
@@ -26,7 +28,8 @@ public class Am2900MachineTest {
 		m.executeNext();
 	}
 
-	@Test(priority = 2)
+	@Test
+	@Order(2)
 	public void testIFetch() {
 		Am2900Machine m = new Am2900Machine();
 		MicroInstruction mi1 = MicroInstruction.DEFAULT.withBz_ea(_BZ_EA.E);
@@ -47,10 +50,11 @@ public class Am2900MachineTest {
 		m.executeNext();
 		m.executeNext();
 		// because the is no microprogram at 0xF
-		assertThrows(() -> m.executeNext());
+		assertThrows(IllegalStateException.class, () -> m.executeNext());
 	}
 
-	@Test(priority = 3)
+	@Test
+	@Order(3)
 	public void testSpeed1() {
 		final int LARGE_NUM = 15_000_000;
 		Am2900Machine m = new Am2900Machine();
@@ -62,11 +66,12 @@ public class Am2900MachineTest {
 			m.executeNext();
 		}
 		int instsPms = (LARGE_NUM / (int) (System.currentTimeMillis() - t1));
-		System.out.println("Speed test 1 has " + instsPms + " inst./ms. Should be well above 1000");
-		assertTrue(instsPms > 1000);
+		System.out.println("Speed test 1 has " + instsPms + " inst./ms. Should be well above 200");
+		assertTrue(instsPms > 200);
 	}
 
-	@Test(priority = 3)
+	@Test
+	@Order(3)
 	public void testSpeed2() {
 		final int LARGE_NUM = 5_000_000;
 		Am2900Machine m = new Am2900Machine();
@@ -84,7 +89,7 @@ public class Am2900MachineTest {
 			m.executeNext();
 		}
 		int instsPms = (3 * LARGE_NUM / (int) (System.currentTimeMillis() - t1));
-		System.out.println("Speed test 2 has " + instsPms + " inst./ms. Should be well above 1000");
-		assertTrue(instsPms > 1000);
+		System.out.println("Speed test 2 has " + instsPms + " inst./ms. Should be well above 200");
+		assertTrue(instsPms > 200);
 	}
 }
