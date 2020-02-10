@@ -77,21 +77,6 @@
 					<mainClass>net.maisikoleni.am2900me.ui.Main</mainClass>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>net.maisikoleni.am2900me.ui.Main</mainClass>
-				</configuration>
-			</plugin>-->
 		</plugins>
 	</build>
 
