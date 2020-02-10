@@ -24,7 +24,7 @@ public class Am2901 {
 	/**
 	 * Does everything <b>except</b> storing to the registers and the shifting of
 	 * the RAM and Q registers
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	@SuppressWarnings("incomplete-switch")
@@ -64,7 +64,7 @@ public class Am2901 {
 	/**
 	 * Stores the (shifted) F-signal and the (shifted) Q-signal to the RB / Q
 	 * registers, dependent on the destination.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2901output processStep2() {
@@ -268,33 +268,33 @@ public class Am2901 {
 		}
 		setQ(0);
 	}
-}
 
-class Am2901input {
-	Am2901_Dest mi_dest;
-	Am2901_Func mi_func;
-	Am2901_Src mi_src;
-	int Cn;
-	int D;
-	int _OE;
-	int regA_addr;
-	int regB_addr;
-	int Q0;
-	int Q3;
-	int RAM0;
-	int RAM3;
-}
+	public static class Am2901input {
+		Am2901_Dest mi_dest;
+		Am2901_Func mi_func;
+		Am2901_Src mi_src;
+		int Cn;
+		int D;
+		int _OE;
+		int regA_addr;
+		int regB_addr;
+		int Q0;
+		int Q3;
+		int RAM0;
+		int RAM3;
+	}
 
-class Am2901output {
-	int Cn4;
-	int F3;
-	int OVR;
-	int F0;
-	int Y;
-	int _P;
-	int _G;
-	int Q0;
-	int Q3;
-	int RAM0;
-	int RAM3;
+	public static class Am2901output {
+		int Cn4;
+		int F3;
+		int OVR;
+		int F0;
+		int Y;
+		int _P;
+		int _G;
+		int Q0;
+		int Q3;
+		int RAM0;
+		int RAM3;
+	}
 }

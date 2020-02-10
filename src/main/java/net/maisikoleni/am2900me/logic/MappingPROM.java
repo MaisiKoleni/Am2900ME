@@ -28,7 +28,7 @@ public class MappingPROM {
 	/**
 	 * Sets the output miAddress according to the entry in the address table, or
 	 * {@link BitUtil#TRI_STATE_OFF} if _OE is high.<br>
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void process() {
@@ -37,7 +37,7 @@ public class MappingPROM {
 
 	/**
 	 * Set the 12 bit microinstruction address for the given 8 bit OP-Code
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void set(int opCode, int miAddress) {
@@ -50,7 +50,7 @@ public class MappingPROM {
 
 	/**
 	 * Returns the microinstruction address for the given 8 bit OP-Code
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public int get(int opCode) {
@@ -61,19 +61,19 @@ public class MappingPROM {
 
 	/**
 	 * Returns the size of the address table; usually 256.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public int size() {
 		return addressTable.length;
 	}
-}
 
-class MappingPROMinput {
-	int _OE;
-	int opCode;
-}
+	public static class MappingPROMinput {
+		int _OE;
+		int opCode;
+	}
 
-class MappingPROMoutput {
-	int miAddress;
+	public static class MappingPROMoutput {
+		int miAddress;
+	}
 }

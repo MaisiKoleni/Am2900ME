@@ -24,7 +24,7 @@ public class Am2910 {
 
 	/**
 	 * Sets one of the outputs _PL, _MAP, _VECT, depending on the Am2910 instruction
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void processStep1() {
@@ -65,7 +65,7 @@ public class Am2910 {
 
 	/**
 	 * Determines the next microinstruction's address on the Y output
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void processStep2() {
@@ -168,7 +168,7 @@ public class Am2910 {
 
 	/**
 	 * Pushes the µPC on the stack. If the stack is full, the top gets overwritten.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	private void pushStack() {
@@ -181,7 +181,7 @@ public class Am2910 {
 	/**
 	 * Pops the last µPC from the stack and returns it. If the stack is empty, the
 	 * result is undefined
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	private int popStack() {
@@ -232,56 +232,56 @@ public class Am2910 {
 		setµPC(0);
 		setRegisterCounter(0);
 	}
-}
 
-class Am2910input {
-	Am2910_Inst mi_inst;
-	/**
-	 * When high (PS), {@link #_CC} is ignored and tests always pass
-	 */
-	_CCEN _CCEN;
-	/**
-	 * 12 bit direct microprogram address input
-	 */
-	int D;
-	/**
-	 * Condition code for branch instructions, usually connected to the Am2904's CT
-	 */
-	int _CC;
-	/**
-	 * Carry in for the counter's incrementer, can be set low to repeat
-	 * microinstructions
-	 */
-	int CI;
-	/**
-	 * Forces loading of register/counter when low
-	 */
-	int _RLD;
-	/**
-	 * Output enable for the Y output
-	 */
-	int _OE;
-}
+	public static class Am2910input {
+		Am2910_Inst mi_inst;
+		/**
+		 * When high (PS), {@link #_CC} is ignored and tests always pass
+		 */
+		_CCEN _CCEN;
+		/**
+		 * 12 bit direct microprogram address input
+		 */
+		int D;
+		/**
+		 * Condition code for branch instructions, usually connected to the Am2904's CT
+		 */
+		int _CC;
+		/**
+		 * Carry in for the counter's incrementer, can be set low to repeat
+		 * microinstructions
+		 */
+		int CI;
+		/**
+		 * Forces loading of register/counter when low
+		 */
+		int _RLD;
+		/**
+		 * Output enable for the Y output
+		 */
+		int _OE;
+	}
 
-class Am2910output {
-	/**
-	 * 12 bit address of the next microinstruction
-	 */
-	int Y;
-	/**
-	 * Low if stack full (size 5)
-	 */
-	int _FULL;
-	/**
-	 * Activates the pipeline register as source for the D input
-	 */
-	int _PL;
-	/**
-	 * Activates the mapping PROM / PLA as source for the D input
-	 */
-	int _MAP;
-	/**
-	 * Activates the interrupt starting address as source for the D input
-	 */
-	int _VECT;
+	public static class Am2910output {
+		/**
+		 * 12 bit address of the next microinstruction
+		 */
+		int Y;
+		/**
+		 * Low if stack full (size 5)
+		 */
+		int _FULL;
+		/**
+		 * Activates the pipeline register as source for the D input
+		 */
+		int _PL;
+		/**
+		 * Activates the mapping PROM / PLA as source for the D input
+		 */
+		int _MAP;
+		/**
+		 * Activates the interrupt starting address as source for the D input
+		 */
+		int _VECT;
+	}
 }

@@ -26,7 +26,7 @@ public class Am2901x4 {
 	/**
 	 * Calculates the Y output and all status bits. Does not change the state of any
 	 * registers.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2901x4output processStep1() {
@@ -79,7 +79,7 @@ public class Am2901x4 {
 
 	/**
 	 * Shifts and saves the results to the registers, depending on the instructions.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2901x4output processStep2() {
@@ -146,31 +146,31 @@ public class Am2901x4 {
 		nibble2.reset();
 		nibble3.reset();
 	}
-}
 
-class Am2901x4input {
-	Am2901_Dest mi_dest;
-	Am2901_Func mi_func;
-	Am2901_Src mi_src;
-	int C0;
-	int D;
-	int _OE;
-	int regA_addr;
-	int regB_addr;
-	int SIO0;
-	int SIO3;
-	int QIO0;
-	int QIO3;
-}
+	public static class Am2901x4input {
+		Am2901_Dest mi_dest;
+		Am2901_Func mi_func;
+		Am2901_Src mi_src;
+		int C0;
+		int D;
+		int _OE;
+		int regA_addr;
+		int regB_addr;
+		int SIO0;
+		int SIO3;
+		int QIO0;
+		int QIO3;
+	}
 
-class Am2901x4output {
-	int IZ;
-	int IC;
-	int IOVR;
-	int IN;
-	int Y;
-	int SIO0;
-	int SIO3;
-	int QIO0;
-	int QIO3;
+	public static class Am2901x4output {
+		int IZ;
+		int IC;
+		int IOVR;
+		int IN;
+		int Y;
+		int SIO0;
+		int SIO3;
+		int QIO0;
+		int QIO3;
+	}
 }

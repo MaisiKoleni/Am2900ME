@@ -34,7 +34,7 @@ public class Am2904 {
 
 	/**
 	 * Sets only the C0, the ALU carry in.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2904output processStep1() {
@@ -45,7 +45,7 @@ public class Am2904 {
 	/**
 	 * Writes the status registers, calculates the condition code and does the shift
 	 * linkage (what shifts where and how to rotate bits and such).
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2904output processStep2() {
@@ -631,40 +631,40 @@ public class Am2904 {
 		setMZ(0);
 		setMOVR(0);
 	}
-}
 
-class Am2904input {
-	Am2904_Inst mi_inst;
-	Am2904_Carry mi_carry;
-	Am2904_Shift mi_shift;
-	int I10;
-	int CX;
-	int Y3;
-	int IZ;
-	int IC;
-	int IOVR;
-	int IN;
-	_CE_M _CEM;
-	_CE_µ _CEµ;
-	int _OEY;
-	int _OECT;
-	int _SE;
-	int _EZ;
-	int _EC;
-	int _EOVR;
-	int _EN;
-	int SIO0;
-	int SIO3;
-	int QIO0;
-	int QIO3;
-}
+	public static class Am2904input {
+		Am2904_Inst mi_inst;
+		Am2904_Carry mi_carry;
+		Am2904_Shift mi_shift;
+		int I10;
+		int CX;
+		int Y3;
+		int IZ;
+		int IC;
+		int IOVR;
+		int IN;
+		_CE_M _CEM;
+		_CE_µ _CEµ;
+		int _OEY;
+		int _OECT;
+		int _SE;
+		int _EZ;
+		int _EC;
+		int _EOVR;
+		int _EN;
+		int SIO0;
+		int SIO3;
+		int QIO0;
+		int QIO3;
+	}
 
-class Am2904output {
-	int C0;
-	int CT;
-	int Y3;
-	int SIO0;
-	int SIO3;
-	int QIO0;
-	int QIO3;
+	public static class Am2904output {
+		int C0;
+		int CT;
+		int Y3;
+		int SIO0;
+		int SIO3;
+		int QIO0;
+		int QIO3;
+	}
 }

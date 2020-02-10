@@ -17,7 +17,7 @@ public class InstructionRegister {
 
 	/**
 	 * Loads the next instruction from the data bus, if _IR_LD is low.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void process() {
@@ -43,15 +43,15 @@ public class InstructionRegister {
 	public void reset() {
 		setInstruction(0);
 	}
-}
 
-class InstructionRegisterInput {
-	_IR_LD _IR_LD;
-	int data;
-}
+	public static class InstructionRegisterInput {
+		_IR_LD _IR_LD;
+		int data;
+	}
 
-class InstructionRegisterOutput {
-	int opCode;
-	int regAAddr;
-	int regBAddr;
+	public static class InstructionRegisterOutput {
+		int opCode;
+		int regAAddr;
+		int regBAddr;
+	}
 }

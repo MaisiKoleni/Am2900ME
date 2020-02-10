@@ -29,7 +29,7 @@ public class Am2904_01x4 {
 	 * always enabled, because the machine in the example does not seem to provide
 	 * so details control over the MSR. Still left _OECT and _OE for
 	 * performance/experimental reasons.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public Am2904_01x4() {
@@ -45,7 +45,7 @@ public class Am2904_01x4 {
 	/**
 	 * Does all the calculations the ALU and status tests are told by the input
 	 * instructions. Results in a CT and Y output.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void process() {
@@ -169,25 +169,25 @@ public class Am2904_01x4 {
 		am2901x4.reset();
 		am2904.reset();
 	}
-}
 
-class Am2904_01x4input {
-	Am2901_Dest mi_dest;
-	Am2901_Func mi_func;
-	Am2901_Src mi_src;
-	Am2904_Inst mi_inst;
-	Am2904_Carry mi_carry;
-	Am2904_Shift mi_shift;
-	_CE_M _CEM;
-	_CE_µ _CEµ;
-	int _OEY;
-	int _OECT;
-	int D;
-	int regA_addr;
-	int regB_addr;
-}
+	public static class Am2904_01x4input {
+		Am2901_Dest mi_dest;
+		Am2901_Func mi_func;
+		Am2901_Src mi_src;
+		Am2904_Inst mi_inst;
+		Am2904_Carry mi_carry;
+		Am2904_Shift mi_shift;
+		_CE_M _CEM;
+		_CE_µ _CEµ;
+		int _OEY;
+		int _OECT;
+		int D;
+		int regA_addr;
+		int regB_addr;
+	}
 
-class Am2904_01x4output {
-	int CT;
-	int Y;
+	public static class Am2904_01x4output {
+		int CT;
+		int Y;
+	}
 }

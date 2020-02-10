@@ -21,7 +21,7 @@ public class ProgramCounter {
 	/**
 	 * Does with the program counter whatever is specified i the 2. to 5. bit of the
 	 * microinstruction. May not respond correctly to invalid inputs.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void process() {
@@ -58,17 +58,17 @@ public class ProgramCounter {
 	public void reset() {
 		setPc(0);
 	}
-}
 
-class ProgramCounterInput {
-	int data;
-	_BZ_EA _BZ_EA;
-	_BZ_INC _BZ_INC;
-	_BZ_ED _BZ_ED;
-	_BZ_LD _BZ_LD;
-}
+	public static class ProgramCounterInput {
+		int data;
+		_BZ_EA _BZ_EA;
+		_BZ_INC _BZ_INC;
+		_BZ_ED _BZ_ED;
+		_BZ_LD _BZ_LD;
+	}
 
-class ProgramCounterOutput {
-	int data;
-	int addr;
+	public static class ProgramCounterOutput {
+		int data;
+		int addr;
+	}
 }

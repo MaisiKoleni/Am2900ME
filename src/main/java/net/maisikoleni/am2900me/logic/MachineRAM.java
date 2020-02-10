@@ -24,7 +24,7 @@ public class MachineRAM {
 
 	/**
 	 * Load data on the data bus output
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void outputData() {
@@ -39,7 +39,7 @@ public class MachineRAM {
 
 	/**
 	 * Saves the data, depending on the last cycle's address and _MWE.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void saveData() {
@@ -60,7 +60,7 @@ public class MachineRAM {
 
 	/**
 	 * Used to program the machine itself, value will be cast to short (16bit).
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void set(int address, int shortValue) {
@@ -73,7 +73,7 @@ public class MachineRAM {
 
 	/**
 	 * Returns the 16 bit short stored at the given address.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public short get(int address) {
@@ -82,7 +82,7 @@ public class MachineRAM {
 
 	/**
 	 * Returns the number of pages the RAM has.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	@SuppressWarnings("static-method")
@@ -92,7 +92,7 @@ public class MachineRAM {
 
 	/**
 	 * Returns the number of memory cells of a single page.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	@SuppressWarnings("static-method")
@@ -103,7 +103,7 @@ public class MachineRAM {
 	/**
 	 * Returns true if the given page is currently in use, that is when values
 	 * located in the page are read or written by the user or machine.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public boolean isPageInUse(int page) {
@@ -112,7 +112,7 @@ public class MachineRAM {
 
 	/**
 	 * Allocates the given page if it is not already allocated.
-	 * 
+	 *
 	 * @author MaisiKoleni
 	 */
 	public void allocatePage(int page) {
@@ -123,14 +123,14 @@ public class MachineRAM {
 		lastAddr = BitUtil.TRI_STATE_OFF;
 		last_MWE = _MWE.R;
 	}
-}
 
-class MainMachineRAMinput {
-	_MWE _MWE;
-	int addr;
-	int data;
-}
+	public static class MainMachineRAMinput {
+		_MWE _MWE;
+		int addr;
+		int data;
+	}
 
-class MainMachineRAMoutput {
-	int data;
+	public static class MainMachineRAMoutput {
+		int data;
+	}
 }
