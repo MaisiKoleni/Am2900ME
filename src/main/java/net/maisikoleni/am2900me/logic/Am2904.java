@@ -14,7 +14,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
  * "Am2904_Instruction_Codes" PDF and the Am2900 Data Book page 92ff in the
  * additional_material folder.</b>
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Am2904 {
@@ -35,7 +35,7 @@ public class Am2904 {
 	/**
 	 * Sets only the C0, the ALU carry in.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2904output processStep1() {
 		output.C0 = calculateC0();
@@ -46,7 +46,7 @@ public class Am2904 {
 	 * Writes the status registers, calculates the condition code and does the shift
 	 * linkage (what shifts where and how to rotate bits and such).
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2904output processStep2() {
 		doSROperations();

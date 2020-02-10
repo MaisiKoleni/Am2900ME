@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 /**
  * Allows observing, toggling or binding of a single style class.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class StyleClassProperty extends SimpleBooleanProperty {
 
@@ -65,7 +65,7 @@ public class StyleClassProperty extends SimpleBooleanProperty {
 	 * state if the property is bound, otherwise the property gets updated with the
 	 * list's current state
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void connectToList() {
 		styleClassList.addListener(listener);
@@ -81,7 +81,7 @@ public class StyleClassProperty extends SimpleBooleanProperty {
 	 * Allows the {@link StyleClassProperty} to be garbage collected (if is is not
 	 * referenced anywhere else).
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void disconnectFromList() {
 		styleClassList.removeListener(listener);

@@ -24,7 +24,7 @@ import net.maisikoleni.am2900me.util.IOUtil;
 /**
  * Panel for viewing and programming the {@link MappingPROM}.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class MappingPromPanel extends BorderPane {
 
@@ -36,8 +36,8 @@ public class MappingPromPanel extends BorderPane {
 	 * Creates a new Mapping PROM Panel connected to the given {@link MappingPROM},
 	 * meaning that the PROM gets updated/'programmed' when the addresses in the
 	 * table are changed
-	 * 
-	 * @author MaisiKoleni
+	 *
+	 * @author Christian Femers
 	 */
 	public MappingPromPanel(MappingPROM mprom) {
 		this.mprom = mprom;
@@ -118,7 +118,6 @@ public class MappingPromPanel extends BorderPane {
 		final IntegerProperty mappingAddr;
 		final StringProperty comment;
 
-		@SuppressWarnings("synthetic-access")
 		MappingEntry(int opCode) {
 			this.opCode = new ReadOnlyIntegerWrapper(this, PROP_OP_CODE, opCode);
 			this.mappingAddr = new SimpleIntegerProperty(this, PROP_ADDRESS, opCode << 4);

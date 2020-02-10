@@ -6,7 +6,7 @@ import java.util.List;
  * Represents a 80 bit wide Microinstruction for this specific 16bit Am2900
  * machine.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class MicroInstruction {

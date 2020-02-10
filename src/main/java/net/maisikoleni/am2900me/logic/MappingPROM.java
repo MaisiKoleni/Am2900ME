@@ -6,7 +6,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
  * The Mapping PROM maps the {@link InstructionRegister}s 8 bit OP-Code to the
  * correct microinstruction address.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class MappingPROM {
@@ -29,7 +29,7 @@ public class MappingPROM {
 	 * Sets the output miAddress according to the entry in the address table, or
 	 * {@link BitUtil#TRI_STATE_OFF} if _OE is high.<br>
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void process() {
 		output.miAddress = input._OE == 0 ? addressTable[input.opCode & 0xFF] : BitUtil.TRI_STATE_OFF;
@@ -38,7 +38,7 @@ public class MappingPROM {
 	/**
 	 * Set the 12 bit microinstruction address for the given 8 bit OP-Code
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void set(int opCode, int miAddress) {
 		if (!BitUtil.isInRange(opCode, 8))
@@ -51,7 +51,7 @@ public class MappingPROM {
 	/**
 	 * Returns the microinstruction address for the given 8 bit OP-Code
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public int get(int opCode) {
 		if (!BitUtil.isInRange(opCode, 8))
@@ -62,7 +62,7 @@ public class MappingPROM {
 	/**
 	 * Returns the size of the address table; usually 256.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public int size() {
 		return addressTable.length;

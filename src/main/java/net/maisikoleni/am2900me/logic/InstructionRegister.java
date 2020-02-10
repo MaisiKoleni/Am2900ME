@@ -6,7 +6,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
 /**
  * Holds the current machine instruction.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class InstructionRegister {
@@ -18,7 +18,7 @@ public class InstructionRegister {
 	/**
 	 * Loads the next instruction from the data bus, if _IR_LD is low.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void process() {
 		// assuming no one changes the output :)

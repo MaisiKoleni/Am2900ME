@@ -36,7 +36,7 @@ import net.maisikoleni.am2900me.util.StyleClassProperty;
 /**
  * Panel for viewing and modifying the {@link MachineRAM}. (live)
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class RAMPanel extends BorderPane {
 	private final TableView<RAM16CellRow> currentPage;
@@ -57,7 +57,7 @@ public class RAMPanel extends BorderPane {
 	 * meaning that the PROM gets updated/'programmed' when the addresses in the
 	 * table are changed
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public RAMPanel(ObservableAm2900Machine machine) {
 		this.m = machine;

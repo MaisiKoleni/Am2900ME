@@ -8,7 +8,7 @@ import javafx.util.converter.IntegerStringConverter;
  * representation, more than that, it also casts the integer to the predefined
  * bit length to ensure the integer always stays in this predefined length/size.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class HexIntStringConverter extends StringConverter<Integer> {
 

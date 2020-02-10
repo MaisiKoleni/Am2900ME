@@ -10,7 +10,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
  * Quite rudimentary implementation of the machine's main memory; memory pages
  * (4096 x 16bit) are only created when used.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class MachineRAM {
@@ -25,7 +25,7 @@ public class MachineRAM {
 	/**
 	 * Load data on the data bus output
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void outputData() {
 		output.data = BitUtil.TRI_STATE_OFF;
@@ -40,7 +40,7 @@ public class MachineRAM {
 	/**
 	 * Saves the data, depending on the last cycle's address and _MWE.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void saveData() {
 		if (lastAddr != BitUtil.TRI_STATE_OFF && last_MWE == _MWE.W) {
@@ -61,7 +61,7 @@ public class MachineRAM {
 	/**
 	 * Used to program the machine itself, value will be cast to short (16bit).
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void set(int address, int shortValue) {
 		setIntern(address, (short) shortValue);
@@ -74,7 +74,7 @@ public class MachineRAM {
 	/**
 	 * Returns the 16 bit short stored at the given address.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public short get(int address) {
 		return getPage(address)[address & 0x0FFF];
@@ -83,7 +83,7 @@ public class MachineRAM {
 	/**
 	 * Returns the number of pages the RAM has.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	@SuppressWarnings("static-method")
 	public int pageCount() {
@@ -93,7 +93,7 @@ public class MachineRAM {
 	/**
 	 * Returns the number of memory cells of a single page.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	@SuppressWarnings("static-method")
 	public int cellCount() {
@@ -104,7 +104,7 @@ public class MachineRAM {
 	 * Returns true if the given page is currently in use, that is when values
 	 * located in the page are read or written by the user or machine.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public boolean isPageInUse(int page) {
 		return pages.containsKey(page);
@@ -113,7 +113,7 @@ public class MachineRAM {
 	/**
 	 * Allocates the given page if it is not already allocated.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void allocatePage(int page) {
 		getPage(page * cellCount());

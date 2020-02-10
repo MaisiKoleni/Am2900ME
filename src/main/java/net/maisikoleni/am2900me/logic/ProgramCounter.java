@@ -9,7 +9,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
 /**
  * The machines program counter.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class ProgramCounter {
@@ -22,7 +22,7 @@ public class ProgramCounter {
 	 * Does with the program counter whatever is specified i the 2. to 5. bit of the
 	 * microinstruction. May not respond correctly to invalid inputs.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void process() {
 		boolean loadD = input._BZ_LD == _BZ_LD.L;

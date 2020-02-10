@@ -10,7 +10,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
  * The ALU of a Am2900 Machine, multiple of which are combined to work with 4
  * times n Bits; e.g. 16, 32 or 48.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Am2901 {
@@ -25,7 +25,7 @@ public class Am2901 {
 	 * Does everything <b>except</b> storing to the registers and the shifting of
 	 * the RAM and Q registers
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	@SuppressWarnings("incomplete-switch")
 	public Am2901output processStep1() {
@@ -65,7 +65,7 @@ public class Am2901 {
 	 * Stores the (shifted) F-signal and the (shifted) Q-signal to the RB / Q
 	 * registers, dependent on the destination.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2901output processStep2() {
 		Am2901_Dest d = input.mi_dest;

@@ -69,7 +69,7 @@ import net.maisikoleni.am2900me.util.UniversalHexIntStringConverter;
 /**
  * Panel for viewing and programming the {@link MicroprogramMemory}.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class MicroInstrPanel extends BorderPane {
 
@@ -86,7 +86,7 @@ public class MicroInstrPanel extends BorderPane {
 	 * Creates a new microprogram memory for programming the microinstructions in
 	 * the machine using the given {@link MicroprogramMemory}.
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public MicroInstrPanel(ObservableAm2900Machine m) {
 		this.m = m;

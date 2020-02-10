@@ -3,7 +3,7 @@ package net.maisikoleni.am2900me.util;
 /**
  * Utility class for bit-operations and similar
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class BitUtil {
@@ -15,21 +15,21 @@ public class BitUtil {
 	 * Represents the OFF / high impedance state of a circuit connected to a
 	 * tri-state bus.
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static final int TRI_STATE_OFF = -1;
 
 	/**
 	 * The bit of operations returning undefined results
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static final int UNDEFINED = -1;
 
 	/**
 	 * Returns 1 if the bitVector int has one bit set to 1, 0 otherwise
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int or(int bitVector) {
 		return bitVector == 0 ? 0 : 1;
@@ -39,7 +39,7 @@ public class BitUtil {
 	 * Transforms a 4 bit signed integer (-8 to 7) to a int representing the same
 	 * number. (Adding leading 1-bits if the 4 bit int is negative)
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int signed4ToSigned32(int signed4bit) {
 		if ((signed4bit & 0b1000) > 0)
@@ -52,7 +52,7 @@ public class BitUtil {
 	 * representing the same number. (Adding leading 1-bits if the 16 bit int is
 	 * negative)
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int signed16ToSigned32(int signed16bit) {
 		return (short) signed16bit;
@@ -61,7 +61,7 @@ public class BitUtil {
 	/**
 	 * Special case for four bits of {@link #singleNBits(int, int)}
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int[] single4Bits(int fourBits) {
 		return new int[] { fourBits & 1, (fourBits >> 1) & 1, (fourBits >> 2) & 1, (fourBits >> 3) & 1 };
@@ -72,7 +72,7 @@ public class BitUtil {
 	 * containing those bits (1 or 0). The least significant bit comes first.<br>
 	 * Inverse of {@link #toBitVector(int...)}
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int[] singleNBits(int bitVector, int n) {
 		int temp = bitVector;
@@ -89,7 +89,7 @@ public class BitUtil {
 	 * the last (least significant) bit in the resulting int.<br>
 	 * Inverse of {@link #singleNBits(int, int)}
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int toBitVector(int... bits) {
 		int res = 0;
@@ -103,7 +103,7 @@ public class BitUtil {
 	/**
 	 * Convenience method for array creation by using varargs.
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static int[] toBitArray(int... bits) {
 		return bits;
@@ -113,7 +113,7 @@ public class BitUtil {
 	 * Transforms the last four bits of an int to a string that contains the binary
 	 * ('1' and '0') representation of the 4 bits
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static String to4bitBin(int x) {
 		StringBuilder sb = new StringBuilder(4);
@@ -128,7 +128,7 @@ public class BitUtil {
 	 * Transforms the last n bits of an int to a string that contains the binary
 	 * ('1' and '0') representation of the n bits
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static String toNbitString(int x, int n) {
 		StringBuilder sb = new StringBuilder(n);
@@ -142,7 +142,7 @@ public class BitUtil {
 	 * Tests if only the lowest n bits are set, if any. Tests basically if the value
 	 * is in the range [0, 2^n)
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static boolean isInRange(int value, int nBits) {
 		return (value >>> nBits) == 0;

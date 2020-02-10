@@ -14,7 +14,7 @@ import net.maisikoleni.am2900me.logic.microinstr._CE_µ;
  * to one unit because it behaves like one and helps to reduce input/output
  * complexity.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Am2904_01x4 {
@@ -30,7 +30,7 @@ public class Am2904_01x4 {
 	 * so details control over the MSR. Still left _OECT and _OE for
 	 * performance/experimental reasons.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2904_01x4() {
 		am2904.input._EZ = 0;
@@ -46,7 +46,7 @@ public class Am2904_01x4 {
 	 * Does all the calculations the ALU and status tests are told by the input
 	 * instructions. Results in a CT and Y output.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void process() {
 		// Am2904 setup

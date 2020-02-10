@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 /**
  * JavaFX application entry point.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Main extends Application {
 
-	public static final String DESCRIPTOR = "Am2900ME (v0.1.1)";
+	public static final String DESCRIPTOR = "Am2900ME (v1.0.0)";
 
 	private final ObservableAm2900Machine machine;
 	private final List<String> stylesheets = List.of(

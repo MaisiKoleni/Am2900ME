@@ -20,7 +20,7 @@ import javafx.collections.ObservableSet;
 /**
  * Some extensions of {@link Bindings}
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public final class AdvBindings {
 
@@ -41,7 +41,7 @@ public final class AdvBindings {
 	 * 
 	 * @see Bindings#createObjectBinding(Callable, javafx.beans.Observable...)
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public static <T, U> ObjectBinding<U> map(ObservableValue<T> observable, Function<T, ObservableValue<U>> mapping) {
 		return new ObjectBinding<>() {

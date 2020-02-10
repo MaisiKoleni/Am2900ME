@@ -5,7 +5,7 @@ import javafx.util.StringConverter;
 /**
  * {@link StringConverter} for enum types.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
 
@@ -14,7 +14,7 @@ public class EnumStringConverter<T extends Enum<T>> extends StringConverter<T> {
 	/**
 	 * Requires an instance of the enum for converting because of type erasure.
 	 * 
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public EnumStringConverter(T instance) {
 		this.instance = instance;

@@ -7,7 +7,7 @@ import net.maisikoleni.am2900me.logic.microinstr._CCEN;
  * The Am2910 - the "Microprogram Controller"<br>
  * Determines the address of next microinstruction to execute.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Am2910 {
@@ -25,7 +25,7 @@ public class Am2910 {
 	/**
 	 * Sets one of the outputs _PL, _MAP, _VECT, depending on the Am2910 instruction
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void processStep1() {
 		µPC = incrementerSignal;
@@ -66,7 +66,7 @@ public class Am2910 {
 	/**
 	 * Determines the next microinstruction's address on the Y output
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public void processStep2() {
 		int passed = input._CCEN.ordinal() | (1 - input._CC);
@@ -169,7 +169,7 @@ public class Am2910 {
 	/**
 	 * Pushes the µPC on the stack. If the stack is full, the top gets overwritten.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	private void pushStack() {
 		if (stackPointer == 5)
@@ -182,7 +182,7 @@ public class Am2910 {
 	 * Pops the last µPC from the stack and returns it. If the stack is empty, the
 	 * result is undefined
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	private int popStack() {
 		if (stackPointer == 0)

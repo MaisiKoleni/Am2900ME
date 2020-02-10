@@ -8,7 +8,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
 /**
  * Four {@link Am2901} combined (without Am2902 here) make a 16 bit ALU.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class Am2901x4 {
@@ -27,7 +27,7 @@ public class Am2901x4 {
 	 * Calculates the Y output and all status bits. Does not change the state of any
 	 * registers.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2901x4output processStep1() {
 		// preparation
@@ -80,7 +80,7 @@ public class Am2901x4 {
 	/**
 	 * Shifts and saves the results to the registers, depending on the instructions.
 	 *
-	 * @author MaisiKoleni
+	 * @author Christian Femers
 	 */
 	public Am2901x4output processStep2() {
 		// prepare shifting

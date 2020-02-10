@@ -24,7 +24,7 @@ public class IOUtil {
 
 	public static boolean readLines(Node alertOwner, Consumer<List<String>> onSuccess) {
 		FileChooser fc = new FileChooser();
-		workingDir().ifPresent(f -> fc.setInitialDirectory(f));
+		workingDir().ifPresent(fc::setInitialDirectory);
 		File f = fc.showOpenDialog(alertOwner.getScene().getWindow());
 		try {
 			onSuccess.accept(Files.readAllLines(f.toPath()));
@@ -40,7 +40,7 @@ public class IOUtil {
 
 	public static boolean writeLines(Node alertOwner, Supplier<Iterable<String>> onSuccess) {
 		FileChooser fc = new FileChooser();
-		workingDir().ifPresent(f -> fc.setInitialDirectory(f));
+		workingDir().ifPresent(fc::setInitialDirectory);
 		File f = fc.showSaveDialog(alertOwner.getScene().getWindow());
 		try {
 			Files.write(f.toPath(), onSuccess.get(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);

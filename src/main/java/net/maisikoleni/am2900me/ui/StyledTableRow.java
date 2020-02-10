@@ -10,7 +10,7 @@ import net.maisikoleni.am2900me.util.StyleClassProperty;
 /**
  * A {@link TableRow} with extended support for {@link StyleClassProperty}
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  *
  */
 public class StyledTableRow<T> extends TableRow<T> {

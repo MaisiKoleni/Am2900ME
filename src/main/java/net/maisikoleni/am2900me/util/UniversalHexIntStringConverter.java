@@ -9,7 +9,7 @@ import javafx.util.StringConverter;
  * Like {@link HexIntStringConverter} but gets supplied with from and to int
  * functions to convert any type that can be represented by an integer.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class UniversalHexIntStringConverter<T> extends StringConverter<T> {
 	private final ToIntFunction<T> toInt;

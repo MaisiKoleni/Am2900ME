@@ -13,7 +13,7 @@ import net.maisikoleni.am2900me.util.BitUtil;
  * A simple, basic Am2900 machine that does not support interrupts at the
  * moment.
  *
- * @author MaisiKoleni
+ * @author Christian Femers
  */
 public class Am2900Machine {
 	final ProgramCounter pc = new ProgramCounter();
@@ -31,8 +31,8 @@ public class Am2900Machine {
 
 	/**
 	 * Creates a new basic Am2900 machine; Am2910's _OE, CI and _RLD are fix.
-	 * 
-	 * @author MaisiKoleni
+	 *
+	 * @author Christian Femers
 	 */
 	public Am2900Machine() {
 		mi = MicroInstruction.DEFAULT.withAm2910_Inst(Am2910_Inst.JZ);
@@ -45,8 +45,8 @@ public class Am2900Machine {
 
 	/**
 	 * Executes the next microinstruction
-	 * 
-	 * @author MaisiKoleni
+	 *
+	 * @author Christian Femers
 	 */
 	public void executeNext() {
 		dataBus = BitUtil.TRI_STATE_OFF;
@@ -54,6 +54,8 @@ public class Am2900Machine {
 		// memory
 		machineRam.input.data = dataBus;
 		machineRam.input.addr = addrBus;
+		if (mi == null)
+			throw new IllegalStateException("no microinstruction set at index " + currentMI);
 		machineRam.input._MWE = mi.mwe;
 		machineRam.outputData();
 		setData(machineRam.output.data);
