@@ -3,7 +3,6 @@ package net.maisikoleni.am2900me.ui;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
@@ -119,9 +118,7 @@ public class MicroInstrPanel extends BorderPane {
 			executedRows.add(executed);
 			return row;
 		});
-		executedRows.addListener((Observable s) -> System.out.println(s));
 		executedVisible = AdvBindings.reduce(executedRows, false, BooleanBinding::get, BooleanOperation.OR);
-		executedVisible.addListener(System.out::println);
 
 		TableColumn<MicroInstrItem, Integer> addrCol = new TableColumn<>("Address");
 		addrCol.setCellValueFactory(new PropertyValueFactory<>("address"));
